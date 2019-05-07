@@ -11,5 +11,7 @@ This project was initialised using the [TokenTutorial Truffle Box ](https://truf
 
 ## Requirements
 
+- [Node.js](https://nodejs.org/en/)
+- [Solc (Solidity compiler) ^5.2.0](https://www.npmjs.com/package/solc)
 - [Truffle](https://truffleframework.com/truffle)
 - [Ganache](https://truffleframework.com/ganache)
