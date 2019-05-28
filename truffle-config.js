@@ -1,6 +1,9 @@
+const path = require("path");
+
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
-  // for more about customizing your Truffle configuration!
+  // to customize your Truffle configuration!
+  contracts_build_directory: path.join(__dirname, "app/src/contracts"),
   compilers: {
     solc: {
       version: "^0.5.2"

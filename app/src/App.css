@@ -1,0 +1,15 @@
+.App {
+  text-align: center;
+  margin: 2rem;
+}
+
+.section {
+  text-align: left;
+  max-width: 720px;
+  margin: 2rem auto auto;
+}
+
+.pure-form input {
+  display: inline;
+  margin: 0 5px;
+}
