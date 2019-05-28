@@ -1,6 +1,9 @@
-var TitleToken = artifacts.require("TitleToken");
+// const TitleAccessControl = artifacts.require("TitleAccessControl");
+// const TitleBase = artifacts.require("TitleBase");
+const TitleCore = artifacts.require("TitleCore");
 
-module.exports = async function(deployer) {
-    deployer.deploy(TitleToken, "TitleToken", "TT");
-    const titleToken = await TitleToken.deployed()
+module.exports = function(deployer) {
+  // deployer.deploy(TitleAccessControl);
+  // deployer.deploy(TitleBase);
+  deployer.deploy(TitleCore);
 };
