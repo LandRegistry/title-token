@@ -1,29 +1,27 @@
 import React from "react";
 import { drizzleConnect } from "drizzle-react";
-import {
-  AccountData,
-  ContractData,
-  ContractForm,
-} from "drizzle-react-components";
+import { newContextComponents } from "drizzle-react-components";
+const { AccountData } = newContextComponents;
 
-class AccountComponent extends React.Component {
-    render() {
-        return (
-            <div className="section">
-                <h2>Active Account</h2>
-                <AccountData accountIndex="0" units="ether" precision="3" />
-            </div>
-        )
+
+class Account extends React.Component {
+    
+  render() {
+      const {drizzle, drizzleState} = this.props;
+
+      return (
+          <div className="section">
+            <h2>Active Account</h2>
+            <AccountData
+              drizzle={drizzle}
+              drizzleState={drizzleState}
+              accountIndex="0"
+              units="ether"
+              precision="3" 
+            />
+          </div>
+      );
     }
 }
 
-const mapStateToProps = state => {
-    return {
-      accounts: state.accounts,      
-      drizzleStatus: state.drizzleStatus,
-    };
-  };
-  
-const Account = drizzleConnect(AccountComponent, mapStateToProps);
-  
 export default Account;

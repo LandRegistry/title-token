@@ -1,4 +1,9 @@
+import React from "react";
 import { DrizzleContext } from "drizzle-react";
+
+import Account from "./Account";
+import Header from "./Header";
+import TitleTokenContainer from "./TitleTokenContainer";
 
 export default () => (
   <DrizzleContext.Consumer>
@@ -12,7 +17,7 @@ export default () => (
       return (
         <div className="App">
           <Header />
-          <Account />
+          <Account drizzle={drizzle} drizzleState={drizzleState}/>
           <TitleTokenContainer drizzle={drizzle} drizzleState={drizzleState} />
         </div>
       );

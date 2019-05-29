@@ -6,9 +6,6 @@ import "../static/css/App.css";
 
 import drizzleOptions from "../drizzleOptions";
 import TitleTokenApp from "./TitleTokenApp";
-import Account from "./Account";
-import Header from "./Header";
-import TitleTokenContainer from "./TitleTokenContainer";
 
 const drizzleStore = generateStore(drizzleOptions);
 const drizzle = new Drizzle(drizzleOptions, drizzleStore);
