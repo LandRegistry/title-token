@@ -6,9 +6,9 @@ pragma solidity ^0.5.8;
 import "./TitleAccessControl.sol";
 import "openzeppelin-solidity/contracts/token/ERC721/ERC721Full.sol";
 
-contract TitleBase is TitleAccessControl, ERC721Full { 
+contract TitleBase is TitleAccessControl, ERC721Full {
 
-    constructor() public 
+    constructor() public
         ERC721Full("TitleToken", "TT") {}
 
     event Issue(address owner, uint256 tokenId, string titleId);
@@ -24,7 +24,7 @@ contract TitleBase is TitleAccessControl, ERC721Full {
     Title[] titles;
 
     /// @dev A mapping from token IDs to the address that owns them.
-    mapping (uint256 => address) public titleIndexToOwner;
+    mapping (uint256 => address) public tokenIndexToOwner;
 
     /// @dev A mapping from owner address to count of tokens that address owns.
     //  Used internally inside balanceOf() to resolve ownership count.
@@ -33,7 +33,10 @@ contract TitleBase is TitleAccessControl, ERC721Full {
     /// @dev A mapping from TokenIDs to an address that has been approved to call
     ///  transferFrom(). Each Token can only have one approved address for transfer
     ///  at any time. A zero value means no approval is outstanding.
-    mapping (uint256 => address) public titleIndexToApproved;
+    mapping (uint256 => address) public tokenIndexToApproved;
+
+    /// @dev A mapping from TitleIDs to the associated token ID.
+    mapping (string => uint256) public titleIdToTokenIndex;
 
     /// @dev An internal method that creates a new token and stores it. This
     ///  method doesn't do any checking and should only be called when the
@@ -48,6 +51,10 @@ contract TitleBase is TitleAccessControl, ERC721Full {
             issuanceTime: uint64(now)
         });
         uint256 newTokenId = titles.push(_title) - 1;
+
+        // Update mappings
+        tokenIndexToOwner[newTokenId] = _owner;
+        titleIdToTokenIndex[_titleId] = newTokenId;
 
         emit Issue(
             _owner,

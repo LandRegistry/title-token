@@ -35,4 +35,14 @@ contract TitleAccessControl {
 
         burnerAddress = _newBurner;
     }
+
+    /// @dev Returns true if the message sender is the issuer
+    function isIssuer() external view returns (bool) {
+        return msg.sender == issuerAddress;
+    }
+
+    /// @dev Returns true if the message sender is the burner
+    function isBurner() external view returns (bool) {
+        return msg.sender == burnerAddress;
+    }
 }
