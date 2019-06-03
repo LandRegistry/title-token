@@ -1,9 +1,15 @@
 import React from "react";
-import logo from "../static/images/title_token.png";
+import TopNav, { asNavLinkAnchor, asTopNavAnchor } from '@govuk-react/top-nav';
+
+// const NavAnchor = asNavLinkAnchor('a');
+// const link = '#';
+
+// const ServiceTitle = (
+//     <NavAnchor href={link}>
+//       Title Token
+//     </NavAnchor>
+// );
 
 export default() => (
-    <div>
-        <img src={logo} alt="drizzle-logo" />
-        <h1>Title Token</h1>
-    </div>
+    <TopNav />
 )

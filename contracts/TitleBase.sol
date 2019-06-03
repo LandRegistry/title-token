@@ -46,6 +46,9 @@ contract TitleBase is TitleAccessControl, ERC721Full {
         address _owner,
         string memory _titleId
     ) internal returns (uint) {
+        
+        require((titleIdToTokenIndex[_titleId] == uint(0)), "Title ID already associated with a token");
+
         Title memory _title = Title({
             titleId: _titleId,
             issuanceTime: uint64(now)
@@ -53,6 +56,7 @@ contract TitleBase is TitleAccessControl, ERC721Full {
         uint256 newTokenId = titles.push(_title) - 1;
 
         // Update mappings
+        ownershipTokenCount[_owner]++;
         tokenIndexToOwner[newTokenId] = _owner;
         titleIdToTokenIndex[_titleId] = newTokenId;
 
@@ -67,6 +71,10 @@ contract TitleBase is TitleAccessControl, ERC721Full {
         _mint(_owner, newTokenId);
 
         return newTokenId;
+    }
+
+    function _transfer(address _from, address _to, uint256 _tokenId) internal {
+
     }
 
 }

@@ -1,9 +1,15 @@
 import React from "react";
 import { DrizzleContext } from "drizzle-react";
 
-import Account from "./Account";
+import Main from '@govuk-react/main';
+import GridRow from '@govuk-react/grid-row';
+import GridCol from '@govuk-react/grid-col';
+
+import Banner from "./Banner";
+import AccountDetails from "./AccountDetails";
 import Header from "./Header";
-import TitleTokenDashboard from "./TitleTokenDashboard";
+import TokenDetails from "./TokenDetails";
+import TitleTokenControls from "./TitleTokenControls";
 
 export default () => (
   <DrizzleContext.Consumer>
@@ -22,8 +28,18 @@ export default () => (
       return (
         <div className="App">
           <Header />
-          <Account drizzle={drizzle} drizzleState={drizzleState}/>
-          <TitleTokenDashboard drizzle={drizzle} drizzleState={drizzleState} />
+          <Main>
+            <Banner />
+            <GridRow>
+              <GridCol setWidth="one-half">
+                <AccountDetails drizzle={drizzle} drizzleState={drizzleState}/>
+              </GridCol>
+              <GridCol setWidth="one-half">
+                <TokenDetails drizzle={drizzle} drizzleState={drizzleState}/>
+              </GridCol>
+            </GridRow>
+            <TitleTokenControls drizzle={drizzle} drizzleState={drizzleState} />
+          </Main>
         </div>
       );
     }}

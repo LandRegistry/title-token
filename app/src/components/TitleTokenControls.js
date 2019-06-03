@@ -1,10 +1,11 @@
 import React from "react";
-import TitleTokenAmount from "./TitleTokenAmount";
 import IssueToken from "./IssueToken";
 import BurnToken from "./BurnToken";
 import TransferToken from "./TransferToken";
 
-class TitleTokenDashboard extends React.Component {
+import { H1, H2, H3, H4, H5, H6 } from "@govuk-react/heading";
+
+class TitleTokenControls extends React.Component {
   state = { 
     userIsIssuer: null, 
     userIsBurner: null
@@ -27,7 +28,7 @@ class TitleTokenDashboard extends React.Component {
     const isBurner = TitleCore.isBurner[this.state.userIsBurner];
     return (
       <div>
-        <TitleTokenAmount drizzle={drizzle} drizzleState={drizzleState}/>
+        <H2>Token controls</H2>
         <IssueToken isIssuer={isIssuer && isIssuer.value} drizzle={drizzle} drizzleState={drizzleState} />
         <BurnToken isBurner={isBurner && isBurner.value} drizzle={drizzle} drizzleState={drizzleState} />
         {/* <TransferToken isBurner={isBurner && isBurner.value} drizzle={drizzle} drizzleState={drizzleState} /> */}
@@ -37,4 +38,4 @@ class TitleTokenDashboard extends React.Component {
   }
 }
 
-export default TitleTokenDashboard;
+export default TitleTokenControls;
