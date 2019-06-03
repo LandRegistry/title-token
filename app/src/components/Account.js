@@ -1,5 +1,4 @@
 import React from "react";
-import { drizzleConnect } from "drizzle-react";
 import { newContextComponents } from "drizzle-react-components";
 const { AccountData } = newContextComponents;
 
@@ -15,9 +14,9 @@ class Account extends React.Component {
             <AccountData
               drizzle={drizzle}
               drizzleState={drizzleState}
-              accountIndex="0"
+              accountIndex={0}
               units="ether"
-              precision="3" 
+              precision={3} 
             />
           </div>
       );

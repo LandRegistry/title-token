@@ -12,7 +12,7 @@ contract TitleCore is TitleBase {
         issuerAddress = msg.sender;
         burnerAddress = msg.sender;
 
-        _issueTitleToken(msg.sender, "");
+        _issueTitleToken(msg.sender, "Genesis");
     }
 
     function issueTitleToken(
@@ -37,4 +37,8 @@ contract TitleCore is TitleBase {
             titleId = string(title.titleId);
             issuanceTime = uint256(title.issuanceTime);
         }
+
+    function burn(uint256 _id) external onlyBurner {
+        _burn(_id);
+    }
 }

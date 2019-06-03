@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import  { Drizzle, generateStore } from "drizzle";
-import { DrizzleProvider, DrizzleContext } from "drizzle-react";
+import { DrizzleContext } from "drizzle-react";
 
 import "../static/css/App.css";
 
@@ -15,9 +15,7 @@ class App extends Component {
   render() {
     return (
       <DrizzleContext.Provider drizzle={drizzle}>
-        {/* <LoadingContainer> */}
         <TitleTokenApp />
-        {/* </LoadingContainer> */}
       </DrizzleContext.Provider>
     );
   }

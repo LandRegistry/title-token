@@ -3,7 +3,7 @@ import { DrizzleContext } from "drizzle-react";
 
 import Account from "./Account";
 import Header from "./Header";
-import TitleTokenContainer from "./TitleTokenContainer";
+import TitleTokenDashboard from "./TitleTokenDashboard";
 
 export default () => (
   <DrizzleContext.Consumer>
@@ -11,14 +11,19 @@ export default () => (
       const { drizzle, drizzleState, initialized } = drizzleContext;
   
       if (!initialized) {
-        return "Loading...";
+        return (
+          <div className="App">
+            <h1><span role="img" aria-label="Loading icon">⚙️</span></h1>
+            <p>Loading dapp...</p>
+          </div>
+        );
       }
 
       return (
         <div className="App">
           <Header />
           <Account drizzle={drizzle} drizzleState={drizzleState}/>
-          <TitleTokenContainer drizzle={drizzle} drizzleState={drizzleState} />
+          <TitleTokenDashboard drizzle={drizzle} drizzleState={drizzleState} />
         </div>
       );
     }}
