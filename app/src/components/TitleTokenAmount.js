@@ -1,10 +1,9 @@
 import React from "react";
-import { drizzleConnect } from "drizzle-react";
 import { newContextComponents } from "drizzle-react-components";
 
-const { AccountData, ContractData, ContractForm } = newContextComponents;
+const { ContractData } = newContextComponents;
 
-class TitleTokenView extends React.Component {
+class TitleTokenAmount extends React.Component {
 
     render() {
         const {drizzle, drizzleState} = this.props;
@@ -25,7 +24,7 @@ class TitleTokenView extends React.Component {
                     drizzleState={drizzleState}
                     contract="TitleCore"
                     method="symbol"
-                    hideIndicator 
+                    hideIndicator
                 />
             </p>
             <p>
@@ -43,4 +42,4 @@ class TitleTokenView extends React.Component {
     }
 }
 
-export default TitleTokenView;
+export default TitleTokenAmount;
