@@ -39,6 +39,15 @@ contract TitleCore is TitleBase {
         }
 
     function burn(uint256 _id) external onlyBurner {
+        // Get the Title ID
+        string memory titleId = titles[_id].titleId;
+
+        // Update mappings
+        ownershipTokenCount[ownerOf(_id)]--;
+        delete tokenIndexToOwner[_id];
+        delete tokenIndexToApproved[_id];
+        delete titleIdToTokenIndex[titleId];
+
         _burn(_id);
     }
 }

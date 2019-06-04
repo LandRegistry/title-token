@@ -1,9 +1,22 @@
 import React from "react";
 import { DrizzleContext } from "drizzle-react";
+import styled from 'styled-components';
 
-import Account from "./Account";
+import Main from '@govuk-react/main';
+import GridRow from '@govuk-react/grid-row';
+import GridCol from '@govuk-react/grid-col';
+
+import Banner from "./Banner";
+import AccountDetails from "./AccountDetails";
 import Header from "./Header";
-import TitleTokenDashboard from "./TitleTokenDashboard";
+import Loading from "./Loading";
+import TokenDetails from "./TokenDetails";
+import TitleTokenControls from "./TitleTokenControls";
+
+
+const StyledGridRow = styled(GridRow)`
+  padding-bottom: 1.5em;
+`
 
 export default () => (
   <DrizzleContext.Consumer>
@@ -12,18 +25,25 @@ export default () => (
   
       if (!initialized) {
         return (
-          <div className="App">
-            <h1><span role="img" aria-label="Loading icon">⚙️</span></h1>
-            <p>Loading dapp...</p>
-          </div>
+          <Loading />
         );
       }
 
       return (
         <div className="App">
           <Header />
-          <Account drizzle={drizzle} drizzleState={drizzleState}/>
-          <TitleTokenDashboard drizzle={drizzle} drizzleState={drizzleState} />
+          <Main>
+            <Banner />
+            <StyledGridRow>
+              <GridCol setWidth="one-half">
+                <AccountDetails drizzle={drizzle} drizzleState={drizzleState}/>
+              </GridCol>
+              <GridCol setWidth="one-half">
+                <TokenDetails drizzle={drizzle} drizzleState={drizzleState}/>
+              </GridCol>
+            </StyledGridRow>
+            <TitleTokenControls drizzle={drizzle} drizzleState={drizzleState} />
+          </Main>
         </div>
       );
     }}
