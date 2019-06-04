@@ -1,7 +1,8 @@
 import React from "react";
 import LabelText from '@govuk-react/label-text';
-import Input from '@govuk-react/input';
 import Button from '@govuk-react/button';
+import { H2 } from "@govuk-react/heading";
+import StyledInput from './StyledInput';
 import { newContextComponents } from "drizzle-react-components";
 const { ContractForm } = newContextComponents;
 
@@ -13,7 +14,7 @@ class BurnToken extends React.Component {
         if (isBurner) {
             return (
                 <div className="section">
-                    <LabelText>Burn Token</LabelText>
+                    <H2>Burn Token</H2>
                     <ContractForm
                         drizzle={drizzle}
                         drizzleState={drizzleState}
@@ -21,17 +22,17 @@ class BurnToken extends React.Component {
                         method="burn"
                         labels={["Token ID"]}
                         render={({ inputs, inputTypes, state, handleInputChange, handleSubmit}) => (
-                            <form onSumbit={handleSubmit}>
-                                {inputs.map((input, index) => (
-                                    <Input
-                                        key={input.name}
-                                        type={inputTypes[index]}
-                                        name={input.name}
-                                        value={state[input.name]}
-                                        placeholder={input.name}
-                                        onChange={handleInputChange}
-                                    />
-                                ))}
+                            <form onSubmit={handleSubmit}>
+                                <LabelText htmlFor="token-id-to-burn">Token ID</LabelText>
+                                <StyledInput
+                                    id="token-id-to-burn"
+                                    key={inputs[0].name}
+                                    type={inputTypes[0]}
+                                    name={inputs[0].name}
+                                    value={state[inputs[0].name]}
+                                    placeholder="451"
+                                    onChange={handleInputChange}
+                                />
                                 <Button>Burn</Button>
                             </form>
                         )}

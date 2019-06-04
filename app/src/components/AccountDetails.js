@@ -1,7 +1,10 @@
 import React from "react";
 import { newContextComponents } from "drizzle-react-components";
-import { H1, H2, H3, H4, H5, H6 } from "@govuk-react/heading";
+import { H2 } from "@govuk-react/heading";
+import LabelText from '@govuk-react/label-text';
+import Paragraph from "./Paragraph"
 const { AccountData } = newContextComponents;
+
 
 class AccountDetails extends React.Component {
     
@@ -19,14 +22,14 @@ class AccountDetails extends React.Component {
               precision={3}
               render={({ address, balance, units }) => (
                 <div>
-                  <p> 
-                    <H3>My address:</H3> 
-                    {address}
-                  </p>
-                  <p>
-                  <H3>My Ether:</H3> 
-                    {balance} {units}
-                  </p>
+                  <LabelText>My address:</LabelText>  
+                  <Paragraph>
+                    <strong>{address}</strong>
+                  </Paragraph>
+                  <LabelText>My balance:</LabelText> 
+                  <Paragraph>
+                    <strong>{balance} {units}</strong>
+                  </Paragraph>
                 </div>
               )}
             />

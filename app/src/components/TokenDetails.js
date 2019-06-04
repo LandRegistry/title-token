@@ -1,6 +1,8 @@
 import React from "react";
 import { newContextComponents } from "drizzle-react-components";
-import { H1, H2, H3, H4, H5, H6 } from "@govuk-react/heading";
+import { H2 } from "@govuk-react/heading";
+import LabelText from "@govuk-react/label-text";
+import Paragraph from './Paragraph';
 
 const { ContractData } = newContextComponents;
 
@@ -10,8 +12,7 @@ class TokenDetails extends React.Component {
         const {drizzle, drizzleState} = this.props;
         return (
             <div className="section">
-            <H2>Token details</H2>
-            <p>
+                <H2>Token details</H2>
                 <ContractData
                     drizzle={drizzle}
                     drizzleState={drizzleState}
@@ -20,13 +21,13 @@ class TokenDetails extends React.Component {
                     methodArgs={[{ from: drizzleState.accounts[0] }]}
                     render={data => (
                         <div>
-                            <H3>Total supply:</H3>
-                            <strong>{data}</strong> title token(s)
+                            <LabelText>Total supply:</LabelText>
+                            <Paragraph>
+                                <strong>{data} title token(s)</strong>
+                            </Paragraph>
                         </div>
                     )}
                 />
-            </p>
-            <p>
                 <ContractData
                     drizzle={drizzle}
                     drizzleState={drizzleState}
@@ -35,12 +36,13 @@ class TokenDetails extends React.Component {
                     methodArgs={[drizzleState.accounts[0]]}
                     render={data => (
                         <div>
-                            <H3>Total owned:</H3>
-                            <strong>{data}</strong> title token(s)
+                            <LabelText>Total owned:</LabelText>
+                            <Paragraph>
+                                <strong>{data} title token(s)</strong> 
+                            </Paragraph>
                         </div>
                     )}
                 />
-            </p>
             </div>
         );
     }

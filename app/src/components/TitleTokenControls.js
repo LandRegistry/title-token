@@ -1,9 +1,9 @@
 import React from "react";
+import GridRow from '@govuk-react/grid-row';
+import GridCol from '@govuk-react/grid-col';
 import IssueToken from "./IssueToken";
 import BurnToken from "./BurnToken";
-import TransferToken from "./TransferToken";
-
-import { H1, H2, H3, H4, H5, H6 } from "@govuk-react/heading";
+// import TransferToken from "./TransferToken";
 
 class TitleTokenControls extends React.Component {
   state = { 
@@ -27,13 +27,15 @@ class TitleTokenControls extends React.Component {
     const isIssuer = TitleCore.isIssuer[this.state.userIsIssuer];
     const isBurner = TitleCore.isBurner[this.state.userIsBurner];
     return (
-      <div>
-        <H2>Token controls</H2>
-        <IssueToken isIssuer={isIssuer && isIssuer.value} drizzle={drizzle} drizzleState={drizzleState} />
-        <BurnToken isBurner={isBurner && isBurner.value} drizzle={drizzle} drizzleState={drizzleState} />
+      <GridRow>
+        <GridCol setWidth="one-half">
+          <IssueToken isIssuer={isIssuer && isIssuer.value} drizzle={drizzle} drizzleState={drizzleState} />
+        </GridCol>
+        <GridCol setWidth="one-half">
+          <BurnToken isBurner={isBurner && isBurner.value} drizzle={drizzle} drizzleState={drizzleState} />
+        </GridCol>
         {/* <TransferToken isBurner={isBurner && isBurner.value} drizzle={drizzle} drizzleState={drizzleState} /> */}
-        
-      </div>
+      </GridRow>
     );
   }
 }

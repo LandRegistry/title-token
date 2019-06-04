@@ -1,8 +1,9 @@
 import React from "react";
 import { newContextComponents } from "drizzle-react-components";
 import LabelText from '@govuk-react/label-text';
-import Input from '@govuk-react/input';
 import Button from '@govuk-react/button';
+import StyledInput from './StyledInput';
+import { H2 } from "@govuk-react/heading";
 const { ContractForm } = newContextComponents;
 
 class IssueToken extends React.Component {
@@ -13,7 +14,7 @@ class IssueToken extends React.Component {
         if (isIssuer) {
             return (
                 <div className="section">
-                    <LabelText>Issue Token</LabelText>
+                    <H2>Issue Token</H2>
                     <ContractForm
                         drizzle={drizzle}
                         drizzleState={drizzleState}
@@ -21,17 +22,27 @@ class IssueToken extends React.Component {
                         method="issueTitleToken"
                         labels={["To Address", "Title ID"]}
                         render={({ inputs, inputTypes, state, handleInputChange, handleSubmit}) => (
-                            <form onSumbit={handleSubmit}>
-                                {inputs.map((input, index) => (
-                                    <Input
-                                        key={input.name}
-                                        type={inputTypes[index]}
-                                        name={input.name}
-                                        value={state[input.name]}
-                                        placeholder={input.name}
-                                        onChange={handleInputChange}
-                                    />
-                                ))}
+                            <form onSubmit={handleSubmit}>
+                                <LabelText htmlFor="owner-address-to-issue">Owner address</LabelText>
+                                <StyledInput
+                                    id="owner-address-to-issue"
+                                    key={inputs[0].name}
+                                    type={inputTypes[0]}
+                                    name={inputs[0].name}
+                                    value={state[inputs[0].name]}
+                                    placeholder="0x00000000000000000000"
+                                    onChange={handleInputChange}
+                                />
+                                <LabelText htmlFor="title-number-to-issue">Title number</LabelText>
+                                <StyledInput
+                                    id="title-number-to-issue"
+                                    key={inputs[1].name}
+                                    type={inputTypes[1]}
+                                    name={inputs[1].name}
+                                    value={state[inputs[1].name]}
+                                    placeholder="ABCD123"
+                                    onChange={handleInputChange}
+                                />
                                 <Button>Issue</Button>
                             </form>
                         )}

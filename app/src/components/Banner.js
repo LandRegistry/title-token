@@ -5,6 +5,7 @@ import logo from "../static/images/title_token.png";
 
 const StyledPanel = styled(Panel)`
     background-color: #005ea5;
+    margin-bottom: 2em;
 `;
 
 class Banner extends React.Component {
@@ -12,7 +13,7 @@ class Banner extends React.Component {
   render() {
     return (      
       <StyledPanel title="Title Token Dashboard">
-          <img src={logo} alt="title-token-logo" />
+          <img src={logo} width="200" height="200" alt="title-token-logo" />
       </StyledPanel>
     )
   }
