@@ -1,6 +1,6 @@
 # ERC721 Token Prototype
 
-This is a simple ERC-721 token implementation, built with Truffle, Ganache and OpenZeppelin. It includes a smart contract for issuing unique "Title Tokens" made up of:
+This is a simple ERC-721 token implementation, built with Drizzle, Truffle, Ganache and OpenZeppelin. It includes a smart contract for issuing unique "Title Tokens" made up of:
 
 - Token ID (uint256 unique)
 - Title ID (string unique - **i.e. title number**) 
