@@ -1,16 +1,12 @@
 import React from "react";
 import { newContextComponents } from "drizzle-react-components";
-import { H2 } from "@govuk-react/heading";
-import LabelText from "@govuk-react/label-text";
-
-import Paragraph from './Paragraph';
 import OwnedTokensContainer from './OwnedTokensContainer';
 
 const { ContractData } = newContextComponents;
 
-class TokenDetails extends React.Component {
+class OwnedTokens extends React.Component {
 
-    state = { 
+    state = {
         balanceOfKey: null
     };
     
@@ -38,31 +34,10 @@ class TokenDetails extends React.Component {
 
         return (
             <div>
-                <H2>Token details</H2>
-                <ContractData
-                    drizzle={drizzle}
-                    drizzleState={drizzleState}
-                    contract="TitleCore"
-                    method="totalSupply"
-                    methodArgs={[{ from: drizzleState.accounts[0] }]}
-                    render={data => (
-                        <div>
-                            <LabelText>Total supply:</LabelText>
-                            <Paragraph>
-                                <strong>{data} title token(s)</strong>
-                            </Paragraph>
-                        </div>
-                    )}
-                />
-                <div>
-                    <LabelText>Total owned:</LabelText>
-                    <Paragraph>
-                        <strong>{balance && balance.value} title token(s)</strong> 
-                    </Paragraph>
-                </div>
+                {ownedTokensContainer}
             </div>
         );
     }
 }
 
-export default TokenDetails;
+export default OwnedTokens;
