@@ -12,6 +12,7 @@ import Header from "./Header";
 import Loading from "./Loading";
 import TokenDetails from "./TokenDetails";
 import TitleTokenControls from "./TitleTokenControls";
+import OwnedTokens from "./OwnedTokens";
 
 
 const StyledGridRow = styled(GridRow)`
@@ -42,7 +43,16 @@ export default () => (
                 <TokenDetails drizzle={drizzle} drizzleState={drizzleState}/>
               </GridCol>
             </StyledGridRow>
-            <TitleTokenControls drizzle={drizzle} drizzleState={drizzleState} />
+            <StyledGridRow>
+              <GridCol>
+                <TitleTokenControls drizzle={drizzle} drizzleState={drizzleState} />
+              </GridCol>
+            </StyledGridRow>
+            <StyledGridRow>
+              <GridCol>
+                <OwnedTokens drizzle={drizzle} drizzleState={drizzleState} />
+              </GridCol>
+            </StyledGridRow>
           </Main>
         </div>
       );

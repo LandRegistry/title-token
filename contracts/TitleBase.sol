@@ -24,11 +24,11 @@ contract TitleBase is TitleAccessControl, ERC721Full {
     Title[] titles;
 
     /// @dev A mapping from token IDs to the address that owns them.
-    mapping (uint256 => address) public tokenIndexToOwner;
+    // mapping (uint256 => address) public tokenIndexToOwner;
 
     /// @dev A mapping from owner address to count of tokens that address owns.
     //  Used internally inside balanceOf() to resolve ownership count.
-    mapping (address => uint256) ownershipTokenCount;
+    // mapping (address => uint256) ownershipTokenCount;
 
     /// @dev A mapping from TokenIDs to an address that has been approved to call
     ///  transferFrom(). Each Token can only have one approved address for transfer
@@ -45,9 +45,12 @@ contract TitleBase is TitleAccessControl, ERC721Full {
     function _issueTitleToken(
         address _owner,
         string memory _titleId
-    ) internal returns (uint) {
-        
-        require((titleIdToTokenIndex[_titleId] == uint(0)), "Title ID already associated with a token");
+    )
+        internal
+        returns (uint)
+    {
+
+        require(!(titleIdToTokenIndex[_titleId] > 0), "Title ID already associated with a token");
 
         Title memory _title = Title({
             titleId: _titleId,
@@ -56,8 +59,6 @@ contract TitleBase is TitleAccessControl, ERC721Full {
         uint256 newTokenId = titles.push(_title) - 1;
 
         // Update mappings
-        ownershipTokenCount[_owner]++;
-        tokenIndexToOwner[newTokenId] = _owner;
         titleIdToTokenIndex[_titleId] = newTokenId;
 
         emit Issue(
@@ -74,7 +75,12 @@ contract TitleBase is TitleAccessControl, ERC721Full {
     }
 
     function _transfer(address _from, address _to, uint256 _tokenId) internal {
-
+        // When creating new title tokens _from is 0x0.
+        if (_from != address(0)) {
+            delete tokenIndexToApproved[_tokenId];
+        }
+        // Emit the transfer event.
+        emit Transfer(_from, _to, _tokenId);
     }
 
 }
