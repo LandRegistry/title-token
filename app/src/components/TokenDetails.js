@@ -3,8 +3,8 @@ import { newContextComponents } from "drizzle-react-components";
 import { H2 } from "@govuk-react/heading";
 import LabelText from "@govuk-react/label-text";
 
-import Paragraph from './Paragraph';
-import OwnedTokensContainer from './OwnedTokensContainer';
+import Paragraph from './common/Paragraph';
+import OwnedTokensContainer from './owned-tokens/OwnedTokensContainer';
 
 const { ContractData } = newContextComponents;
 

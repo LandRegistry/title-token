@@ -2,7 +2,7 @@ import React from "react";
 import LabelText from '@govuk-react/label-text';
 import Button from '@govuk-react/button';
 import { H2 } from "@govuk-react/heading";
-import StyledInput from './StyledInput';
+import StyledInput from '../common/StyledInput';
 import { newContextComponents } from "drizzle-react-components";
 const { ContractForm } = newContextComponents;
 

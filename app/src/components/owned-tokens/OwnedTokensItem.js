@@ -1,6 +1,6 @@
 import React from "react";
 import LabelText from "@govuk-react/label-text";
-import Paragraph from './Paragraph';
+import Paragraph from '../common/Paragraph';
 import GridCol from '@govuk-react/grid-col';
 import GridRow from '@govuk-react/grid-row';
 import styled from 'styled-components'

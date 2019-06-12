@@ -6,13 +6,12 @@ import Main from '@govuk-react/main';
 import GridRow from '@govuk-react/grid-row';
 import GridCol from '@govuk-react/grid-col';
 
-import Banner from "./Banner";
-import AccountDetails from "./AccountDetails";
-import Header from "./Header";
-import Loading from "./Loading";
-import TokenDetails from "./TokenDetails";
-import TitleTokenControls from "./TitleTokenControls";
-import OwnedTokens from "./OwnedTokens";
+import Banner from "../common/Banner";
+import AccountDetails from "../AccountDetails";
+import Loading from "../common/Loading";
+import TokenDetails from "../TokenDetails";
+import DashboardControls from "./DashboardControls";
+import OwnedTokens from "../owned-tokens/OwnedTokens";
 
 
 const StyledGridRow = styled(GridRow)`
@@ -31,8 +30,7 @@ export default () => (
       }
 
       return (
-        <div className="App">
-          <Header />
+        <div>
           <Main>
             <Banner />
             <StyledGridRow>
@@ -45,7 +43,7 @@ export default () => (
             </StyledGridRow>
             <StyledGridRow>
               <GridCol>
-                <TitleTokenControls drizzle={drizzle} drizzleState={drizzleState} />
+                <DashboardControls drizzle={drizzle} drizzleState={drizzleState} />
               </GridCol>
             </StyledGridRow>
             <StyledGridRow>

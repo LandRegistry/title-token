@@ -1,9 +1,8 @@
 import React from "react";
 import GridRow from '@govuk-react/grid-row';
 import GridCol from '@govuk-react/grid-col';
-import IssueToken from "./IssueToken";
-import BurnToken from "./BurnToken";
-// import TransferToken from "./TransferToken";
+import IssueToken from "../token-controls/IssueToken";
+import BurnToken from "../token-controls/BurnToken";
 
 class TitleTokenControls extends React.Component {
   state = { 

@@ -2,7 +2,7 @@ import React from "react";
 import { newContextComponents } from "drizzle-react-components";
 import { H2 } from "@govuk-react/heading";
 import LabelText from '@govuk-react/label-text';
-import Paragraph from "./Paragraph"
+import Paragraph from "./common/Paragraph"
 const { AccountData } = newContextComponents;
 
 

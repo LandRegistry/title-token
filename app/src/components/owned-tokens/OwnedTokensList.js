@@ -1,6 +1,5 @@
 import React from "react";
 import { newContextComponents } from "drizzle-react-components";
-import GridRow from '@govuk-react/grid-row';
 import { H2 } from "@govuk-react/heading";
 
 import OwnedTokensItem from './OwnedTokensItem'
