@@ -1,8 +1,5 @@
 import React from "react";
-import { newContextComponents } from "drizzle-react-components";
 import OwnedTokensContainer from './OwnedTokensContainer';
-
-const { ContractData } = newContextComponents;
 
 class OwnedTokens extends React.Component {
 
