@@ -1,6 +1,6 @@
 import React from "react";
 
-import Paragrah from "../common/Paragraph"
+import Paragraph from "../common/Paragraph"
 
 import Button from '@govuk-react/button';
 import { ButtonArrow } from '@govuk-react/icons';
@@ -15,10 +15,10 @@ export default() => (
         <GridRow>
             <GridCol setWidth="two-thirds">
                 <Heading>Request a token for your property</Heading>
-                <Paragrah>
+                <Paragraph>
                     If you are the owner of a property you can request to tokenise the asset allowing you to trade 
                     the token on live market places.
-                </Paragrah>
+                </Paragraph>
                 <InsetText>
                     You’ll need to prove your identity and your ownership of the property in order to be issued with 
                     a token.
