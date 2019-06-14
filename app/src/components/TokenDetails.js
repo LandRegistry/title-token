@@ -4,7 +4,6 @@ import { H2 } from "@govuk-react/heading";
 import LabelText from "@govuk-react/label-text";
 
 import Paragraph from './common/Paragraph';
-import OwnedTokensContainer from './owned-tokens/OwnedTokensContainer';
 
 const { ContractData } = newContextComponents;
 
@@ -27,14 +26,6 @@ class TokenDetails extends React.Component {
         const {drizzle, drizzleState} = this.props;
         const { TitleCore } = this.props.drizzleState.contracts;
         const balance = TitleCore.balanceOf[this.state.balanceOfKey];
-
-        let ownedTokensContainer;
-
-        if (balance && balance.value) {
-            ownedTokensContainer = (
-                <OwnedTokensContainer drizzle={drizzle} drizzleState={drizzleState} balance={balance && balance.value} />
-            )
-        }
 
         return (
             <div>
