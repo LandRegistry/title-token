@@ -5,6 +5,10 @@ var Paragraph = styled.p`
     margin-bottom: 1em;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     font-size: 16px;
+
+    @media only screen and (min-width: 768px) {
+        font-size: 19px;
+    }
 `
   
 export default Paragraph;
