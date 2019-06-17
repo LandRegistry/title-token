@@ -7,13 +7,14 @@
                 "street_name": "Digital Street",
                 "town_city": "Bristol",
                 "county": "Bristol",
-                "postcode": "BR1 1AB"
+                "postcode": "BR27 678"
             },
             "description": "Some description",
             "proprietors": [
-                "Archie Higgs"
+                "JOHN DOE"
             ],
             "image": "./images/ABCD123.jpg"
         }
-    }
+    },
+    "court_orders": {}
 }

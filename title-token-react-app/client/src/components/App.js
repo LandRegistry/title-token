@@ -9,6 +9,7 @@ import Header from "./common/Header";
 import Dashboard from "./dashboard/Dashboard";
 import StartPage from "./start-page/StartPage";
 import IdentityVerificationPage from "./identity-verification-page/IdentityVerificationPage";
+import SelectTitlePage from "./select-title-page/SelectTitlePage";
 import WalletAddressPage from "./wallet-address-page/WalletAddressPage";
 import SuccessPage from "./success-page/SuccessPage";
 
@@ -24,6 +25,7 @@ class App extends Component {
           <Header />
           <Route exact path="/" component={StartPage} />
           <Route path="/idv" component={IdentityVerificationPage} />
+          <Route path="/select-title" component={SelectTitlePage} />
           <Route path="/wallet-address" component={WalletAddressPage} />
           <Route path="/success" component={SuccessPage} />
           <Route path="/dashboard" component={Dashboard} />

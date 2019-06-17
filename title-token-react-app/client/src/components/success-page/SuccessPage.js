@@ -35,7 +35,7 @@ export default() => (
                     <Link as={RouterLink} to="#">click here</Link>
                     &nbsp;and your request will be removed from the worklist.
                 </InsetText>
-                <Link as={RouterLink} to="/dashboard">
+                <Link as={RouterLink} to="/dashboard/">
                     View your token details
                 </Link>
             </GridCol>
