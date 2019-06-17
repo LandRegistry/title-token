@@ -10,17 +10,37 @@ const { ContractData } = newContextComponents;
 class TokenDetails extends React.Component {
 
     state = { 
-        balanceOfKey: null
+        data: null,
+        balanceOfKey: null,
+        titles: null
     };
     
     componentDidMount() {
         const { drizzle, drizzleState} = this.props;
         const titleTokenContract = drizzle.contracts.TitleCore;
-        console.log(drizzle);
-        console.log(drizzleState);
         const balanceOfKey = titleTokenContract.methods["balanceOf"].cacheCall(drizzleState.accounts[0]);
         this.setState({ balanceOfKey });
+
+        this.callBackendAPI()
+            .then((res) => {
+                let titles = [];
+                for (let key in res.titles) {
+                    titles.push(res.titles[key]);
+                } 
+                this.setState({ titles: titles });
+            })
+            .catch(err => console.log(err));
     }
+
+    callBackendAPI = async () => {
+        const response = await fetch('/data');
+        const body = await response.json();
+
+        if (response.status !== 200) {
+            throw Error(body.message) 
+        }
+        return body;
+    };
     
     render() {
         const {drizzle, drizzleState} = this.props;

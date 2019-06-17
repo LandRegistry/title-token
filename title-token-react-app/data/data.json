@@ -1,0 +1,19 @@
+{
+    "titles": {
+        "ABCD123": {
+            "title_number": "ABCD123",
+            "address": { 
+                "property_name_number": "1",
+                "street_name": "Digital Street",
+                "town_city": "Bristol",
+                "county": "Bristol",
+                "postcode": "BR1 1AB"
+            },
+            "description": "Some description",
+            "proprietors": [
+                "Archie Higgs"
+            ],
+            "image": "./images/ABCD123.jpg"
+        }
+    }
+}
