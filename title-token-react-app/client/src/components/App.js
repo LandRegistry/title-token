@@ -12,6 +12,7 @@ import IdentityVerificationPage from "./identity-verification-page/IdentityVerif
 import SelectTitlePage from "./select-title-page/SelectTitlePage";
 import WalletAddressPage from "./wallet-address-page/WalletAddressPage";
 import SuccessPage from "./success-page/SuccessPage";
+import WorklistPage from "./worklist-page/WorklistPage";
 
 const drizzleStore = generateStore(drizzleOptions);
 const drizzle = new Drizzle(drizzleOptions, drizzleStore);
@@ -28,6 +29,7 @@ class App extends Component {
           <Route path="/select-title" component={SelectTitlePage} />
           <Route path="/wallet-address" component={WalletAddressPage} />
           <Route path="/success" component={SuccessPage} />
+          <Route path="/worklist" component={WorklistPage} />
           <Route path="/dashboard" component={Dashboard} />
         </Router>
       </DrizzleContext.Provider>

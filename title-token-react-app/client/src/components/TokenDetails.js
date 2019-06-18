@@ -24,8 +24,8 @@ class TokenDetails extends React.Component {
         this.callBackendAPI()
             .then((res) => {
                 let titles = [];
-                for (let key in res.titles) {
-                    titles.push(res.titles[key]);
+                for (let key in res) {
+                    titles.push(res[key]);
                 } 
                 this.setState({ titles: titles });
             })
@@ -33,7 +33,7 @@ class TokenDetails extends React.Component {
     }
 
     callBackendAPI = async () => {
-        const response = await fetch('/data');
+        const response = await fetch('/titles');
         const body = await response.json();
 
         if (response.status !== 200) {

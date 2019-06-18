@@ -29,12 +29,13 @@ class SelectTitlePage extends React.Component {
 
     state = { 
         ownedTitles: null
-
     };
 
     componentDidMount() {
-        const { ownedTitles } = this.props.location.state;
-        this.setState({ownedTitles: ownedTitles });
+        if (this.props.location.state) {
+            const { ownedTitles } = this.props.location.state;
+            this.setState({ownedTitles: ownedTitles });
+        }
     }
     
     render() {

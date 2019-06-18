@@ -27,8 +27,10 @@ const StyledLink = styled(Link)`
 class IdentityVerificationPage extends React.Component {
     
     state = {
-        fullName: '',
-        dateOfBirth: '',
+        fullNameInput: '',
+        dayInput: '',
+        monthInput: '',
+        yearInput: '',
         ownedTitles: null,
         loading: false,
         error: ''
@@ -49,13 +51,15 @@ class IdentityVerificationPage extends React.Component {
             .then((res) => {
                 let error = '';
                 let ownedTitles = [];
-                for (let key in res.titles) {
-                    if (res.titles[key]['proprietors'].includes(this.state.fullName.toUpperCase())) {
-                        ownedTitles.push(res.titles[key]);
+                for (let key in res) {
+                    for (let proprietor in res[key]['proprietors']) {
+                        if (this.state.fullNameInput.toUpperCase() == res[key]['proprietors'][proprietor].toUpperCase()) {
+                            ownedTitles.push(res[key]);
+                        }
                     }
                 }
                 if (!ownedTitles.length > 0) {
-                    error = "No titles found for user: " + this.state.fullName;
+                    error = "No titles found for user: " + this.state.fullNameInput;
                 }
                 this.setState({ ownedTitles: ownedTitles, loading: false, error: error });
             })
@@ -63,7 +67,7 @@ class IdentityVerificationPage extends React.Component {
     }
 
     callBackendAPI = async () => {
-        const response = await fetch('/data');
+        const response = await fetch('/titles');
         const body = await response.json();
 
         if (response.status !== 200) {
@@ -78,10 +82,11 @@ class IdentityVerificationPage extends React.Component {
         ))
 
         if (this.state.loading) {
-            return <Loading text="Performing Identity checks..."/>
+            return <Loading text="Performing identity checks..."/>
         } else if (this.state.ownedTitles && this.state.ownedTitles.length > 0) {
             return (
-                <Redirect 
+                <Redirect
+                    push 
                     to={{
                         pathname: "/select-title",
                         state: { ownedTitles: this.state.ownedTitles }
@@ -102,16 +107,28 @@ class IdentityVerificationPage extends React.Component {
                                 <LabelText>
                                     Full name
                                     <StyledInput 
-                                        name="fullName"
-                                        value={this.state.fullName}
-                                        onChange={this.handleChange} 
+                                        name="fullNameInput"
+                                        value={this.state.fullNameInput}
+                                        onChange={this.handleChange}
+                                        required 
                                     />
                                 </LabelText>
                                 <DateField
                                     hintText="For example, 31 03 1980"
-                                    name="dateOfBirth"
-                                    value={this.state.dateOfBirth}
-                                    onChange={this.handleChangeDOB}
+                                    inputNames={{
+                                        day: 'dayInput',
+                                        month: 'monthInput',
+                                        year: 'yearInput'
+                                    }}
+                                    defaultValues={{
+                                        day: this.state.dayInput,
+                                        month: this.state.monthInput,
+                                        year: this.state.yearInput,
+                                    }}
+                                    onChange={this.handleChange}
+                                    input={{
+                                        required: true
+                                    }}
                                 >
                                     Date of birth
                                 </DateField>

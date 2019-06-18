@@ -31,9 +31,10 @@ export default() => (
                     Your identity has been verified and your token has been issued to your digital wallet.
                 </StyledParagraph>
                 <InsetText>
-                    To <strong>cancel</strong> your token request&nbsp;
+                    To <strong>burn</strong> your title token&nbsp;
                     <Link as={RouterLink} to="#">click here</Link>
-                    &nbsp;and your request will be removed from the worklist.
+                    &nbsp;and it will be permanantly deleted. You may request a new token for the same title at a 
+                    later date.
                 </InsetText>
                 <Link as={RouterLink} to="/dashboard/">
                     View your token details

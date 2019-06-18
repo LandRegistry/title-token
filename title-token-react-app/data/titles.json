@@ -1,0 +1,92 @@
+{
+    "ABCD123": {
+        "title_number": "ABCD123",
+        "address": { 
+            "property_name_number": "1",
+            "street_name": "Digital Street",
+            "town_city": "Bristol",
+            "county": "Bristol",
+            "postcode": "BR27 678"
+        },
+        "description": "Three bedroom, semi-detached property",
+        "proprietors": [
+            "John Doe"
+        ],
+        "image": "ABCD123.jpg"
+    },
+    "EFGH123": {
+        "title_number": "EFGH123",
+        "address": { 
+            "property_name_number": "2",
+            "street_name": "Digital Street",
+            "town_city": "Bristol",
+            "county": "Bristol",
+            "postcode": "BR27 678"
+        },
+        "description": "Three bedroom, semi-detached property",
+        "proprietors": [
+            "Eva Porter"
+        ],
+        "image": "ABCD123.jpg"
+    },
+    "IJKL123": {
+        "title_number": "IJKL123",
+        "address": { 
+            "property_name_number": "3",
+            "street_name": "Digital Street",
+            "town_city": "Bristol",
+            "county": "Bristol",
+            "postcode": "BR27 678"
+        },
+        "description": "Three bedroom, semi-detached property",
+        "proprietors": [
+            "Rebecca Stokes"
+        ],
+        "image": "ABCD123.jpg"
+    },
+    "MNOPQ123": {
+        "title_number": "MNOPQ123",
+        "address": { 
+            "property_name_number": "4",
+            "street_name": "Digital Street",
+            "town_city": "Bristol",
+            "county": "Bristol",
+            "postcode": "BR27 678"
+        },
+        "description": "Three bedroom, semi-detached property",
+        "proprietors": [
+            "Mark Read"
+        ],
+        "image": "ABCD123.jpg"
+    },
+    "RSTU123": {
+        "title_number": "RSTU123",
+        "address": { 
+            "property_name_number": "5",
+            "street_name": "Digital Street",
+            "town_city": "Bristol",
+            "county": "Bristol",
+            "postcode": "BR27 678"
+        },
+        "description": "Three bedroom, semi-detached property",
+        "proprietors": [
+            "Amy Briggs"
+        ],
+        "image": "ABCD123.jpg"
+    },
+    "VWXY123": {
+        "title_number": "VWXY123",
+        "address": { 
+            "property_name_number": "6",
+            "street_name": "Digital Street",
+            "town_city": "Bristol",
+            "county": "Bristol",
+            "postcode": "BR27 678"
+        },
+        "description": "Three bedroom, semi-detached property",
+        "proprietors": [
+            "Sam Harris"
+        ],
+        "image": "ABCD123.jpg"
+    }
+}

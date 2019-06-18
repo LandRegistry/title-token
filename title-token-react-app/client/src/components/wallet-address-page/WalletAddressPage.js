@@ -16,19 +16,46 @@ const StyledLink = styled(Link)`
     text-decoration: none;
 `;
 
-export default() => (
-    <Main>
-        <GridRow>
-            <GridCol setWidth="two-thirds">
-                <Heading>Digital wallet address</Heading>
-                <LabelText>
-                    Enter digital wallet address e.g. 0xSLRHtKNngkdXEeobR76b53LETtpyT 
-                    <StyledInput></StyledInput>
-                </LabelText>
-                <StyledLink as={RouterLink} to="/success/">
-                    <Button>Continue</Button>
-                </StyledLink>
-            </GridCol>
-        </GridRow>
-    </Main>
-)
+class WalletAddressPage extends React.Component {
+    
+    state = {
+        walletAddressInput: '',
+        loading: false,
+        error: ''
+    }
+
+    handleChange = (e) => {
+        this.setState({[e.target.name]: e.target.value});
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.setState({loading: true});
+    }
+
+    render() {
+        return (
+            <Main>
+                <GridRow>
+                    <GridCol setWidth="two-thirds">
+                        <Heading>Digital wallet address</Heading>
+                        <form onSubmit={this.handleSubmit}>
+                            <LabelText>
+                                Enter digital wallet address e.g. 0x70427779641D9c2bA227E48b9B6FbEF1B3CfcDc6 
+                                <StyledInput 
+                                    name="walletAddressInput"
+                                    required 
+                                />
+                            </LabelText>
+                            <StyledLink as={RouterLink} to="/success/">
+                                <Button>Continue</Button>
+                            </StyledLink>
+                        </form>
+                    </GridCol>
+                </GridRow>
+            </Main>
+        )
+    }
+}
+
+export default WalletAddressPage;

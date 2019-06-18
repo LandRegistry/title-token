@@ -18,6 +18,7 @@ class OwnedTokensList extends React.Component {
         const ownedTokensList = ownedTokenIds.map(function(item, index) {
             return(
                 <ContractData
+                key={index}
                 drizzle={drizzle}
                 drizzleState={drizzleState}
                 contract="TitleCore"
