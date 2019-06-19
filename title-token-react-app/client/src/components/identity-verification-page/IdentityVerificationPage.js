@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Redirect } from 'react-router';
 
@@ -24,49 +24,57 @@ const StyledLink = styled(Link)`
     text-decoration: none;
 `;
 
-class IdentityVerificationPage extends React.Component {
-    
-    state = {
-        fullNameInput: '',
-        dayInput: '',
-        monthInput: '',
-        yearInput: '',
-        ownedTitles: null,
-        loading: false,
-        error: ''
+const IdentityVerificationPage = () => {
+
+    const[fullName, setFullName] = useState('');
+    const[day, setDay] = useState('');
+    const[month, setMonth] = useState('');
+    const[year, setYear] = useState('');
+    const[ownedTitles, setOwnedTitles] = useState(null);
+    const[loading, setLoading] = useState(false);
+    const[error, setError] = useState('');
+
+    const handleChangeDate = (e) => {
+        if (e.target.name == 'dayInput') {
+            setDay(e.target.value);
+        } else if (e.target.name == 'monthInput'){
+            setMonth(e.target.value);
+        } else if (e.target.name == 'yearInput'){
+            setYear(e.target.value);
+        }
     }
 
-    handleChange = (e) => {
-        this.setState({[e.target.name]: e.target.value});
-    }
-
-    handleSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        this.setState({loading: true});
-        this.checkIdentity();
+        setLoading(true);
+        checkIdentity();
     }
 
-    checkIdentity() {
-        this.callBackendAPI()
+    const checkIdentity = () => {
+        callBackendAPI()
             .then((res) => {
                 let error = '';
                 let ownedTitles = [];
+                console.log(fullName);
                 for (let key in res) {
                     for (let proprietor in res[key]['proprietors']) {
-                        if (this.state.fullNameInput.toUpperCase() == res[key]['proprietors'][proprietor].toUpperCase()) {
+                        if (fullName.toUpperCase() == res[key]['proprietors'][proprietor].toUpperCase()) {
                             ownedTitles.push(res[key]);
                         }
                     }
                 }
                 if (!ownedTitles.length > 0) {
-                    error = "No titles found for user: " + this.state.fullNameInput;
+                    error = "No titles found for user: " + fullName;
                 }
-                this.setState({ ownedTitles: ownedTitles, loading: false, error: error });
+                setOwnedTitles(ownedTitles);
+                setLoading(false);
+                setError(error);
+                // setState({ ownedTitles: ownedTitles, loading: false, error: error });
             })
             .catch(err => console.log(err));
     }
 
-    callBackendAPI = async () => {
+    const callBackendAPI = async () => {
         const response = await fetch('/titles');
         const body = await response.json();
 
@@ -76,72 +84,69 @@ class IdentityVerificationPage extends React.Component {
         return body;
     };
 
-    render() {
-        const errorText = (this.state.error && (
-            <ErrorText>{this.state.error}</ErrorText>
-        ))
+    const errorText = (error && (
+        <ErrorText>{error}</ErrorText>
+    ))
+    
+    // Code to return after submitting the identity form
+    if (loading) {
+        return <Loading text="Performing identity checks..."/>
+    } else if (ownedTitles && ownedTitles.length > 0) {
+        return (
+            <Redirect
+                push 
+                to={{
+                    pathname: "/select-title",
+                    state: { ownedTitles: ownedTitles }
+                }} 
+            />
+        ) 
+    }
 
-        if (this.state.loading) {
-            return <Loading text="Performing identity checks..."/>
-        } else if (this.state.ownedTitles && this.state.ownedTitles.length > 0) {
-            return (
-                <Redirect
-                    push 
-                    to={{
-                        pathname: "/select-title",
-                        state: { ownedTitles: this.state.ownedTitles }
-                    }} 
-                />
-            ) 
-        } else {
-            return (
-                <Main>
-                    <GridRow>
-                        <GridCol setWidth="two-thirds">
-                            {errorText}
-                            <H1>Identity verification</H1>
-                            <StyledParagraph>
-                                Complete the form below to submit identity verification
-                            </StyledParagraph>
-                            <form onSubmit={this.handleSubmit}>
-                                <LabelText>
-                                    Full name
-                                    <StyledInput 
-                                        name="fullNameInput"
-                                        value={this.state.fullNameInput}
-                                        onChange={this.handleChange}
-                                        required 
-                                    />
-                                </LabelText>
-                                <DateField
-                                    hintText="For example, 31 03 1980"
-                                    inputNames={{
-                                        day: 'dayInput',
-                                        month: 'monthInput',
-                                        year: 'yearInput'
-                                    }}
-                                    defaultValues={{
-                                        day: this.state.dayInput,
-                                        month: this.state.monthInput,
-                                        year: this.state.yearInput,
-                                    }}
-                                    onChange={this.handleChange}
-                                    input={{
-                                        required: true
-                                    }}
-                                >
-                                    Date of birth
-                                </DateField>
-                                {/* <StyledLink as={RouterLink} to="/wallet-address/"> */}
-                                <Button>Continue</Button>
-                                {/* </StyledLink> */}
-                            </form>
-                        </GridCol>
-                    </GridRow>
-                </Main>
-            )
-        }
-    } 
+    return (
+        <Main>
+            <GridRow>
+                <GridCol setWidth="two-thirds">
+                    {errorText}
+                    <H1>Identity verification</H1>
+                    <StyledParagraph>
+                        Complete the form below to submit identity verification
+                    </StyledParagraph>
+                    <form onSubmit={handleSubmit}>
+                        <LabelText>
+                            Full name
+                            <StyledInput 
+                                name="fullNameInput"
+                                value={fullName.value}
+                                onChange={e => setFullName(e.target.value)}
+                                required 
+                            />
+                        </LabelText>
+                        <DateField
+                            hintText="For example, 31 03 1980"
+                            inputNames={{
+                                day: 'dayInput',
+                                month: 'monthInput',
+                                year: 'yearInput'
+                            }}
+                            defaultValues={{
+                                day: day,
+                                month: month,
+                                year: year
+                            }}
+                            onChange={handleChangeDate}
+                            input={{
+                                required: true
+                            }}
+                        >
+                            Date of birth
+                        </DateField>
+                        <Button>Continue</Button>
+                    </form>
+                </GridCol>
+            </GridRow>
+        </Main>
+    )
 }
 
 export default IdentityVerificationPage;
