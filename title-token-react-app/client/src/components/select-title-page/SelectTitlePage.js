@@ -1,21 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
+import { Redirect } from 'react-router';
 import { Link as RouterLink } from "react-router-dom";
 import styled from "styled-components";
 
 import Button from '@govuk-react/button';
 import ErrorText from '@govuk-react/error-text';
+import Fieldset from '@govuk-react/fieldset';
 import GridCol from '@govuk-react/grid-col';
 import GridRow from '@govuk-react/grid-row';
 import { H1 } from "@govuk-react/heading";
 import Main from '@govuk-react/main';
 import Link from '@govuk-react/link';
 import Radio from '@govuk-react/radio';
-
-import Paragraph from '../common/Paragraph';
-
-// const StyledParagraph = styled(Paragraph)`
-//     padding-bottom: 20px;
-// `;
 
 const StyledLink = styled(Link)`
     text-decoration: none;
@@ -25,54 +21,71 @@ const StyledButton = styled(Button)`
     margin-top: 1em;
 `
 
-class SelectTitlePage extends React.Component {
+const SelectTitlePage = (props) => {
+    const [ownedTitles, setOwnedTitles] = useState(props.location.state.ownedTitles)
+    const [selectedTitle, setSelectedTitle] = useState('')
+    const [submit, setSubmit] = useState(false)
 
-    state = { 
-        ownedTitles: null
-    };
+    const handleChangeTitle = (e) => {
+        setSelectedTitle(e.target.value);
+        localStorage.setItem('titleId', e.target.value);
+        localStorage.getItem('titleId');
+    }
 
-    componentDidMount() {
-        if (this.props.location.state) {
-            const { ownedTitles } = this.props.location.state;
-            this.setState({ownedTitles: ownedTitles });
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (selectedTitle && localStorage.getItem('titleId')) {
+            setSubmit(true);
         }
     }
+
+    if (submit) {
+        return (
+            <Redirect
+                push
+                to={{
+                    pathname: "/wallet-address/"
+                }}
+            />
+        )
+    }
     
-    render() {
-        if (this.state.ownedTitles && this.state.ownedTitles.length > 0) {
-            return (
-                <Main>
-                    <GridRow>
-                        <GridCol setWidth="two-thirds">
-                            <H1>Which title would you like to receive a token for?</H1>
-                            <div>
-                                {this.state.ownedTitles.map((item, key) => 
+    if (ownedTitles && ownedTitles.length > 0) {
+        return (
+            <Main>
+                <GridRow>
+                    <GridCol setWidth="two-thirds">
+                        <form onSubmit={handleSubmit}>
+                            <Fieldset>
+                                <Fieldset.Legend size="XL" isPageHeading>
+                                    Which title would you like to receive a token for?
+                                </Fieldset.Legend>
+                                {ownedTitles.map((item, key) => 
                                     <Radio 
                                         key={key}
+                                        value={item.title_number}
                                         name="titles"
                                         hint={item.address.property_name_number + " " + item.address.street_name}
-                                        checked={(key == 0)}
+                                        onChange={handleChangeTitle}
                                     >
                                         {item.title_number}
                                     </Radio>
                                 )}
-                            </div>
-                            <StyledLink as={RouterLink} to="/wallet-address/">
-                                <StyledButton>Continue</StyledButton>
-                            </StyledLink>
-                        </GridCol>
-                    </GridRow>
-                </Main>
-            );
-        } else {
-            return (
-                <Main>
-                    <ErrorText>
-                        Something went wrong
-                    </ErrorText>
-                </Main>
-            )
-        }
+                            </Fieldset>
+                            <StyledButton>Continue</StyledButton>
+                        </form>
+                    </GridCol>
+                </GridRow>
+            </Main>
+        );
+    } else {
+        return (
+            <Main>
+                <ErrorText>
+                    Something went wrong
+                </ErrorText>
+            </Main>
+        )
     }
 }
 

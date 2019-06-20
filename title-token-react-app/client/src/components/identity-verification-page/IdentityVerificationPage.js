@@ -34,13 +34,21 @@ const IdentityVerificationPage = () => {
     const[loading, setLoading] = useState(false);
     const[error, setError] = useState('');
 
+    const handleChangeName = (e) => {
+        localStorage.setItem('fullName', e.target.value);
+        setFullName(e.target.value);
+    }
+
     const handleChangeDate = (e) => {
         if (e.target.name == 'dayInput') {
             setDay(e.target.value);
+            localStorage.setItem('day', e.target.value);
         } else if (e.target.name == 'monthInput'){
             setMonth(e.target.value);
+            localStorage.setItem('month', e.target.value);
         } else if (e.target.name == 'yearInput'){
             setYear(e.target.value);
+            localStorage.setItem('year', e.target.value);
         }
     }
 
@@ -118,7 +126,7 @@ const IdentityVerificationPage = () => {
                             <StyledInput 
                                 name="fullNameInput"
                                 value={fullName.value}
-                                onChange={e => setFullName(e.target.value)}
+                                onChange={handleChangeName}
                                 required 
                             />
                         </LabelText>

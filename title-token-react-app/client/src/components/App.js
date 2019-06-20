@@ -11,6 +11,7 @@ import StartPage from "./start-page/StartPage";
 import IdentityVerificationPage from "./identity-verification-page/IdentityVerificationPage";
 import SelectTitlePage from "./select-title-page/SelectTitlePage";
 import WalletAddressPage from "./wallet-address-page/WalletAddressPage";
+import CheckAnswersPage from "./check-answers-page/CheckAnswersPage";
 import SuccessPage from "./success-page/SuccessPage";
 import WorklistPage from "./worklist-page/WorklistPage";
 
@@ -28,6 +29,7 @@ class App extends Component {
           <Route path="/idv" component={IdentityVerificationPage} />
           <Route path="/select-title" component={SelectTitlePage} />
           <Route path="/wallet-address" component={WalletAddressPage} />
+          <Route path="/check-answers" component={CheckAnswersPage} />
           <Route path="/success" component={SuccessPage} />
           <Route path="/worklist" component={WorklistPage} />
           <Route path="/dashboard" component={Dashboard} />

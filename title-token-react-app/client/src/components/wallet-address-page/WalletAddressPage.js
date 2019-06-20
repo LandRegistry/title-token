@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { DrizzleContext } from "drizzle-react";
+import React, { useState, useEffect } from "react";
+import { drizzleReactHooks, DrizzleContext } from "drizzle-react";
 import styled from "styled-components";
+import { Redirect } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
 import { newContextComponents } from "drizzle-react-components";
 
@@ -25,23 +26,26 @@ const StyledLink = styled(Link)`
 
 const WalletAddressPage = () => {
     
-    const[loading, setLoading] = useState(false);
     const[error, setError] = useState('');
+    const[walletAddress, setWalletAddress] = useState(null);
+    
+    const handleSubmit = (e, walletAddress) => {
+        e.preventDefault();
+        console.log()
+        setWalletAddress(walletAddress)
+        localStorage.setItem('walletAddress', walletAddress);
+    }
 
-    // state = {
-    //     walletAddressInput: '',
-    //     loading: false,
-    //     error: ''
-    // }
-
-    // handleChange = (e) => {
-    //     this.setState({[e.target.name]: e.target.value});
-    // }
-
-    // handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     this.setState({loading: true});
-    // }
+  if (walletAddress && localStorage.getItem('walletAddress')) {
+        return (
+            <Redirect
+                push 
+                to={{
+                    pathname: "/check-answers"
+                }} 
+            />
+        ) 
+    }
 
     return (
         <DrizzleContext.Consumer>
@@ -59,7 +63,7 @@ const WalletAddressPage = () => {
                         <GridRow>
                             <GridCol setWidth="two-thirds">
                                 <Heading>Digital wallet address</Heading>
-                                {/* <form onSubmit={this.handleSubmit}> */}
+                                <form onSubmit={(e) => handleSubmit(e, drizzleState.accounts[0])}>
                                     {/* <LabelText>
                                         Enter digital wallet address e.g. 0x70427779641D9c2bA227E48b9B6FbEF1B3CfcDc6 
                                         <StyledInput 
@@ -84,14 +88,12 @@ const WalletAddressPage = () => {
                                                     <strong>{balance} {units}</strong>
                                                 </Paragraph>
                                                 <Details summary="Not your wallet address?">
-                                                    Please ensure that you are signed into the correct account before proceeding.
+                                                    Make sure that you are signed into the correct account before proceeding.
                                                 </Details>
                                             </div>
                                     )}/>
-                                    <StyledLink as={RouterLink} to="/success/">
-                                        <Button>Continue</Button>
-                                    </StyledLink>
-                                {/* </form> */}
+                                    <Button>Continue</Button>
+                                </form>
                             </GridCol>
                         </GridRow>
                     </Main>
