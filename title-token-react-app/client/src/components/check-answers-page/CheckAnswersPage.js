@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
+import { drizzleReactHooks } from 'drizzle-react'
+import { Redirect } from 'react-router';
 import { Link as RouterLink } from "react-router-dom";
 import styled from "styled-components";
+
+import Loading from '../common/Loading';
 
 import Button from '@govuk-react/button';
 import ErrorText from '@govuk-react/error-text';
@@ -20,12 +24,47 @@ const months = [ "January", "February", "March", "April", "May", "June", "July",
 
 const CheckAnswersPage = () => {
 
+    // const drizzleState = drizzleReactHooks.useDrizzleState(drizzleState => ({
+    //     accounts: drizzleState.accounts
+    // }))
+
+    const {
+        cacheCall,
+        drizzle,
+        useCacheEvents,
+        useCacheSend
+    } = drizzleReactHooks.useDrizzle()
+
+    const { send, TXObjects } = useCacheSend('TitleCore', 'issueTitleToken');
+
     const [loading, setLoading] = useState(false);
+    const [fullName, setFullName] = useState(localStorage.getItem('fullName'));
+    const [date, setDate] = useState({
+        day: localStorage.getItem('day'),
+        month: localStorage.getItem('month'),
+        year: localStorage.getItem('year')
+    });
+    const [titleId, setTitleId] = useState(localStorage.getItem('titleId'));
+    const [walletAddress, setWalletAddress] = useState(localStorage.getItem('walletAddress'));
 
     const handleSubmit = () => {
-        
+        setLoading('true');
+        useCallback(({ to, value}) => send(to, value), ['walletAddress', titleId])
     }
 
+    if (TXObjects) {
+        return  <Redirect
+        push 
+        to={{
+            pathname: "/success",
+            state: { TXObjects: TXObjects }
+        }} 
+    />
+    }
+
+    if (loading) {
+        return <Loading text="Issuing token"/>
+    }
     if (localStorage.getItem('fullName') &&
         localStorage.getItem('day') &&
         localStorage.getItem('month') &&
@@ -33,7 +72,6 @@ const CheckAnswersPage = () => {
         localStorage.getItem('titleId') &&
         localStorage.getItem('walletAddress')) {
 
-    
         return (
             <Main>
                 <GridRow>
