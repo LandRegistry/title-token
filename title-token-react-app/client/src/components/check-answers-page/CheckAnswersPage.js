@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from "react";
-import { drizzleReactHooks } from 'drizzle-react'
 import { Redirect } from 'react-router';
 import { Link as RouterLink } from "react-router-dom";
 import styled from "styled-components";
@@ -22,132 +21,140 @@ const StyledLink = styled(Link)`
 
 const months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-const CheckAnswersPage = () => {
+class CheckAnswersPage extends React.Component {
 
-    // const drizzleState = drizzleReactHooks.useDrizzleState(drizzleState => ({
-    //     accounts: drizzleState.accounts
-    // }))
+    state = { 
+        tokenId: null,
+        methodKey: null,
+        walletAddress: localStorage.getItem('walletAddress'),
+        titleId: localStorage.getItem('titleId'),
+        fullName: localStorage.getItem('fullName'),
+        date: {
+            day: localStorage.getItem('day'),
+            month: localStorage.getItem('month'),
+            year: localStorage.getItem('year')
+        },
+        loading: false
+    };
 
-    const {
-        cacheCall,
-        drizzle,
-        useCacheEvents,
-        useCacheSend
-    } = drizzleReactHooks.useDrizzle()
+    componentDidMount() {
+        const { drizzle } = this.props;
+        console.log(drizzle);
+        const contract = drizzle.contracts.TitleCore;
 
-    const { send, TXObjects } = useCacheSend('TitleCore', 'issueTitleToken');
-
-    const [loading, setLoading] = useState(false);
-    const [fullName, setFullName] = useState(localStorage.getItem('fullName'));
-    const [date, setDate] = useState({
-        day: localStorage.getItem('day'),
-        month: localStorage.getItem('month'),
-        year: localStorage.getItem('year')
-    });
-    const [titleId, setTitleId] = useState(localStorage.getItem('titleId'));
-    const [walletAddress, setWalletAddress] = useState(localStorage.getItem('walletAddress'));
-
-    const handleSubmit = () => {
-        setLoading('true');
-        useCallback(({ to, value}) => send(to, value), ['walletAddress', titleId])
+        const methodKey = contract.methods["issueTitleToken"].cacheCall(this.state.walletAddress, this.state.titleId);
+        this.setState({ methodKey });
     }
 
-    if (TXObjects) {
-        return  <Redirect
-        push 
-        to={{
-            pathname: "/success",
-            state: { TXObjects: TXObjects }
-        }} 
-    />
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.setState({loading: 'true'});
+
+        const { TitleCore } = this.props.drizzleState.contracts;
+        const issueTitleToken = TitleCore.issueTitleToken[this.state.methodKey];
+
+
+        this.setState({tokenId: issueTitleToken && issueTitleToken.value});
+        localStorage.setItem('tokenId', this.state.tokenId);
     }
 
-    if (loading) {
-        return <Loading text="Issuing token"/>
-    }
-    if (localStorage.getItem('fullName') &&
-        localStorage.getItem('day') &&
-        localStorage.getItem('month') &&
-        localStorage.getItem('year') &&
-        localStorage.getItem('titleId') &&
-        localStorage.getItem('walletAddress')) {
+    render() {
+        if (this.state.tokenId) {
+            return  <Redirect
+            push 
+            to={{
+                pathname: "/success",
+                state: { tokenId: this.state.tokenId }
+            }} 
+        />
+        }
+    
+        if (this.state.loading) {
+            return <Loading text="Issuing token"/>
+        }
 
-        return (
-            <Main>
-                <GridRow>
-                    <GridCol>
-                        <form onSubmit={handleSubmit}>
-                            <Fieldset>
-                                <H1>
-                                    Check your answers before submitting your application
-                                </H1>
-                                <Table>
-                                    <Table.Row>
-                                        <Table.Cell>
-                                            <strong>Name</strong>
-                                        </Table.Cell>
-                                        <Table.Cell>{localStorage.getItem('fullName')}</Table.Cell>
-                                        <Table.Cell>
-                                            <StyledLink href="#">
-                                                Change
-                                            </StyledLink>
-                                        </Table.Cell>
-                                    </Table.Row>
-                                    <Table.Row>
-                                        <Table.Cell>
-                                            <strong>Date of birth</strong>
-                                        </Table.Cell>
-                                        <Table.Cell>
-                                            {localStorage.getItem('day')} {months[localStorage.getItem('month')]} {localStorage.getItem('year')}
-                                        </Table.Cell>
-                                        <Table.Cell>
-                                            <StyledLink href="#">
-                                                Change
-                                            </StyledLink>
-                                        </Table.Cell>
-                                    </Table.Row>
-                                    <Table.Row>
-                                        <Table.Cell>
-                                            <strong>Title number</strong>
-                                        </Table.Cell>
-                                        <Table.Cell>
-                                            {localStorage.getItem('titleId')}
-                                        </Table.Cell>
-                                        <Table.Cell>
-                                            <StyledLink href="#">
-                                                Change
-                                            </StyledLink>
-                                        </Table.Cell>
-                                    </Table.Row>
-                                    <Table.Row>
-                                        <Table.Cell>
-                                            <strong>Wallet address</strong>
-                                        </Table.Cell>
-                                        <Table.Cell>
-                                            {localStorage.getItem('walletAddress')}
-                                        </Table.Cell>
-                                        <Table.Cell>
-                                            <StyledLink href="#">
-                                                Change
-                                            </StyledLink>
-                                        </Table.Cell>
-                                    </Table.Row>
-                                </Table>
-                            </Fieldset>
-                            <Button>Accept and send</Button>
-                        </form>
-                    </GridCol>
-                </GridRow>
-            </Main>
-        );
-    } else {
-        return (
-            <Main>
-                <ErrorText>
-                    Something went wrong
-                </ErrorText>
-            </Main>
-        )
+        if (this.state.fullName &&
+            this.state.date &&
+            this.state.titleId &&
+            this.state.walletAddress) {
+    
+            return (
+                <Main>
+                    <GridRow>
+                        <GridCol>
+                            <form onSubmit={this.handleSubmit}>
+                                <Fieldset>
+                                    <H1>
+                                        Check your answers before submitting your application
+                                    </H1>
+                                    <Table>
+                                        <Table.Row>
+                                            <Table.Cell>
+                                                <strong>Name</strong>
+                                            </Table.Cell>
+                                            <Table.Cell>{this.state.fullName}</Table.Cell>
+                                            <Table.Cell>
+                                                <StyledLink href="#">
+                                                    Change
+                                                </StyledLink>
+                                            </Table.Cell>
+                                        </Table.Row>
+                                        <Table.Row>
+                                            <Table.Cell>
+                                                <strong>Date of birth</strong>
+                                            </Table.Cell>
+                                            <Table.Cell>
+                                                {this.state.date.day} {months[this.state.date.month]} {this.state.date.year}
+                                            </Table.Cell>
+                                            <Table.Cell>
+                                                <StyledLink href="#">
+                                                    Change
+                                                </StyledLink>
+                                            </Table.Cell>
+                                        </Table.Row>
+                                        <Table.Row>
+                                            <Table.Cell>
+                                                <strong>Title number</strong>
+                                            </Table.Cell>
+                                            <Table.Cell>
+                                                {this.state.titleId}
+                                            </Table.Cell>
+                                            <Table.Cell>
+                                                <StyledLink href="#">
+                                                    Change
+                                                </StyledLink>
+                                            </Table.Cell>
+                                        </Table.Row>
+                                        <Table.Row>
+                                            <Table.Cell>
+                                                <strong>Wallet address</strong>
+                                            </Table.Cell>
+                                            <Table.Cell>
+                                                {this.state.walletAddress}
+                                            </Table.Cell>
+                                            <Table.Cell>
+                                                <StyledLink href="#">
+                                                    Change
+                                                </StyledLink>
+                                            </Table.Cell>
+                                        </Table.Row>
+                                    </Table>
+                                </Fieldset>
+                                <Button>Accept and send</Button>
+                            </form>
+                        </GridCol>
+                    </GridRow>
+                </Main>
+            );
+        } else {
+            return (
+                <Main>
+                    <ErrorText>
+                        Something went wrong
+                    </ErrorText>
+                </Main>
+            )
+        }
     }
 }
 

@@ -20,10 +20,6 @@ const StyledParagraph = styled(Paragraph)`
     padding-bottom: 20px;
 `;
 
-const StyledLink = styled(Link)`
-    text-decoration: none;
-`;
-
 const IdentityVerificationPage = () => {
 
     const[fullName, setFullName] = useState('');
@@ -63,7 +59,6 @@ const IdentityVerificationPage = () => {
             .then((res) => {
                 let error = '';
                 let ownedTitles = [];
-                console.log(fullName);
                 for (let key in res) {
                     for (let proprietor in res[key]['proprietors']) {
                         if (fullName.toUpperCase() == res[key]['proprietors'][proprietor].toUpperCase()) {
