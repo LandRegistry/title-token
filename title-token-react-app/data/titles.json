@@ -88,5 +88,20 @@
             "Sam Harris"
         ],
         "image": "ABCD123.jpg"
+    },
+    "EFGH456": {
+        "title_number": "EFGH456",
+        "address": { 
+            "property_name_number": "7",
+            "street_name": "Digital Street",
+            "town_city": "Bristol",
+            "county": "Bristol",
+            "postcode": "BR27 678"
+        },
+        "description": "Three bedroom, semi-detached property",
+        "proprietors": [
+            "John Doe"
+        ],
+        "image": "ABCD123.jpg"
     }
 }

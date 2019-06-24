@@ -56,7 +56,7 @@ class WorklistPage extends React.Component {
     }
 
     callBackendAPI = async () => {
-        const response = await fetch('/court_orders/titles');
+        const response = await fetch('/court-orders/titles');
         const body = await response.json();
 
         if (response.status !== 200) {

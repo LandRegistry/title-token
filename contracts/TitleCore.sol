@@ -19,7 +19,8 @@ contract TitleCore is TitleBase {
         string memory _titleId
     )
         public
-        onlyIssuer
+        // Access control disabled for demonstration purposes - allow users to 'request' tokens to themselves
+        // onlyIssuer
         returns(uint) {
             return _issueTitleToken(_owner, _titleId);
         }
