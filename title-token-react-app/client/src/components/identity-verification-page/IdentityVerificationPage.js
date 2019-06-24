@@ -10,7 +10,6 @@ import Button from '@govuk-react/button';
 import DateField from '@govuk-react/date-field';
 import ErrorText from '@govuk-react/error-text';
 import LabelText from '@govuk-react/label-text';
-import Link from '@govuk-react/link';
 import Main from '@govuk-react/main';
 import GridCol from '@govuk-react/grid-col';
 import GridRow from '@govuk-react/grid-row';
@@ -36,13 +35,13 @@ const IdentityVerificationPage = () => {
     }
 
     const handleChangeDate = (e) => {
-        if (e.target.name == 'dayInput') {
+        if (e.target.name === 'dayInput') {
             setDay(e.target.value);
             localStorage.setItem('day', e.target.value);
-        } else if (e.target.name == 'monthInput'){
+        } else if (e.target.name === 'monthInput'){
             setMonth(e.target.value);
             localStorage.setItem('month', e.target.value);
-        } else if (e.target.name == 'yearInput'){
+        } else if (e.target.name === 'yearInput'){
             setYear(e.target.value);
             localStorage.setItem('year', e.target.value);
         }
@@ -61,7 +60,7 @@ const IdentityVerificationPage = () => {
                 let ownedTitles = [];
                 for (let key in res) {
                     for (let proprietor in res[key]['proprietors']) {
-                        if (fullName.toUpperCase() == res[key]['proprietors'][proprietor].toUpperCase()) {
+                        if (fullName.toUpperCase() === res[key]['proprietors'][proprietor].toUpperCase()) {
                             ownedTitles.push(res[key]);
                         }
                     }

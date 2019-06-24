@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Redirect } from 'react-router';
-import { Link as RouterLink } from "react-router-dom";
 import styled from "styled-components";
 
 import Button from '@govuk-react/button';
@@ -8,21 +7,15 @@ import ErrorText from '@govuk-react/error-text';
 import Fieldset from '@govuk-react/fieldset';
 import GridCol from '@govuk-react/grid-col';
 import GridRow from '@govuk-react/grid-row';
-import { H1 } from "@govuk-react/heading";
 import Main from '@govuk-react/main';
-import Link from '@govuk-react/link';
 import Radio from '@govuk-react/radio';
-
-const StyledLink = styled(Link)`
-    text-decoration: none;
-`;
 
 const StyledButton = styled(Button)`
     margin-top: 1em;
 `
 
 const SelectTitlePage = (props) => {
-    const [ownedTitles, setOwnedTitles] = useState(props.location.state.ownedTitles)
+    const [ownedTitles] = useState(props.location.state.ownedTitles)
     const [selectedTitle, setSelectedTitle] = useState('')
     const [submit, setSubmit] = useState(false)
 

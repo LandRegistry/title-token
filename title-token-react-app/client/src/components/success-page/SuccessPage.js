@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -15,31 +15,40 @@ const StyledParagraph = styled(Paragraph)`
     padding-top: 20px;
 `;
 
-export default() => (
-    <Main>
-        <GridRow>
-            <GridCol>
-                <Panel title="Token issued">
-                    Your token ID:<br />
-                    <strong>451</strong>
-                </Panel>
-            </GridCol>
-        </GridRow>
-        <GridRow>
-            <GridCol setWidth="two-thirds">
-                <StyledParagraph>
-                    Your identity has been verified and your token has been issued to your digital wallet.
-                </StyledParagraph>
-                <InsetText>
-                    To <strong>burn</strong> your title token&nbsp;
-                    <Link as={RouterLink} to="#">click here</Link>
-                    &nbsp;and it will be permanantly deleted. You may request a new token for the same title at a 
-                    later date.
-                </InsetText>
-                <Link as={RouterLink} to="/dashboard/">
-                    View your token details
-                </Link>
-            </GridCol>
-        </GridRow>
-    </Main>
-)
+const SuccessPage = () => {
+
+    const [tokenId] = useState(localStorage.getItem('tokenId'))
+
+    console.log("tokenId:", tokenId);
+
+    return (
+        <Main>
+            <GridRow>
+                <GridCol>
+                    <Panel title="Token issued">
+                        Your token ID:<br />
+                        <strong>{localStorage.getItem('tokenId')}</strong>
+                    </Panel>
+                </GridCol>
+            </GridRow>
+            <GridRow>
+                <GridCol setWidth="two-thirds">
+                    <StyledParagraph>
+                        Your identity has been verified and your token has been issued to your digital wallet.
+                    </StyledParagraph>
+                    <InsetText>
+                        To <strong>burn</strong> your title token&nbsp;
+                        <Link as={RouterLink} to="#">click here</Link>
+                        &nbsp;and it will be permanantly deleted. You may request a new token for the same title at a 
+                        later date.
+                    </InsetText>
+                    <Link as={RouterLink} to="/dashboard/">
+                        View your token details
+                    </Link>
+                </GridCol>
+            </GridRow>
+        </Main>
+    )
+    }
+
+export default SuccessPage

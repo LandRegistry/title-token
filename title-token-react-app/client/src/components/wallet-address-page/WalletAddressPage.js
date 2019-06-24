@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { drizzleReactHooks, DrizzleContext } from "drizzle-react";
+import React, { useState } from "react";
+import { DrizzleContext } from "drizzle-react";
 import styled from "styled-components";
 import { Redirect } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
@@ -24,83 +24,81 @@ const StyledLink = styled(Link)`
     text-decoration: none;
 `;
 
-const WalletAddressPage = () => {
+class WalletAddressPage extends React.Component {
     
-    const[error, setError] = useState('');
-    const[walletAddress, setWalletAddress] = useState(null);
+    state = {
+        error: '',
+        walletAddress: ''
+    }
+
     
-    const handleSubmit = (e, walletAddress) => {
+    handleSubmit = (e, walletAddress) => {
         e.preventDefault();
-        console.log()
-        setWalletAddress(walletAddress)
-        localStorage.setItem('walletAddress', walletAddress);
+        this.setState({
+            walletAddress: walletAddress
+        })
+        localStorage.setItem('walletAddress', this.state.walletAddress);
     }
 
-  if (walletAddress && localStorage.getItem('walletAddress')) {
+    render() {
+        if (this.state.walletAddress && localStorage.getItem('walletAddress')) {
+            return (
+                <Redirect
+                    push 
+                    to={{
+                        pathname: "/check-answers"
+                    }} 
+                />
+            )
+        }
         return (
-            <Redirect
-                push 
-                to={{
-                    pathname: "/check-answers"
-                }} 
-            />
-        ) 
-    }
-
-    return (
-        <DrizzleContext.Consumer>
-            {drizzleContext => {
-                const { drizzle, drizzleState, initialized } = drizzleContext;
-            
-                if (!initialized) {
+            <DrizzleContext.Consumer>
+                {drizzleContext => {
+                    const { drizzle, drizzleState, initialized } = drizzleContext;
+                
+                    if (!initialized) {
+                        return (
+                        <Loading />
+                        );
+                    }
+    
                     return (
-                    <Loading />
+                        <Main>
+                            <GridRow>
+                                <GridCol setWidth="two-thirds">
+                                    <Heading>Digital wallet address</Heading>
+                                    <form onSubmit={(e) => this.handleSubmit(e, drizzleState.accounts[0])}>
+                                        <AccountData
+                                            drizzle={drizzle}
+                                            drizzleState={drizzleState}
+                                            accountIndex={0}
+                                            units="ether"
+                                            precision={3}
+                                            render={({ address, balance, units }) => (
+                                                <div>
+                                                    <LabelText>Wallet address</LabelText>  
+                                                    <Paragraph>
+                                                        <strong>{address}</strong>
+                                                    </Paragraph>
+                                                    <LabelText>Balance</LabelText>  
+                                                    <Paragraph>
+                                                        <strong>{balance} {units}</strong>
+                                                    </Paragraph>
+                                                    <Details summary="Not your wallet address?">
+                                                        Make sure that you are signed into the correct account before proceeding.
+                                                    </Details>
+                                                </div>
+                                        )}/>
+                                        <Button>Continue</Button>
+                                    </form>
+                                </GridCol>
+                            </GridRow>
+                        </Main>
                     );
-                }
-
-                return (
-                    <Main>
-                        <GridRow>
-                            <GridCol setWidth="two-thirds">
-                                <Heading>Digital wallet address</Heading>
-                                <form onSubmit={(e) => handleSubmit(e, drizzleState.accounts[0])}>
-                                    {/* <LabelText>
-                                        Enter digital wallet address e.g. 0x70427779641D9c2bA227E48b9B6FbEF1B3CfcDc6 
-                                        <StyledInput 
-                                            name="walletAddressInput"
-                                            required 
-                                        />
-                                    </LabelText> */}
-                                    <AccountData
-                                        drizzle={drizzle}
-                                        drizzleState={drizzleState}
-                                        accountIndex={0}
-                                        units="ether"
-                                        precision={3}
-                                        render={({ address, balance, units }) => (
-                                            <div>
-                                                <LabelText>Wallet address</LabelText>  
-                                                <Paragraph>
-                                                    <strong>{address}</strong>
-                                                </Paragraph>
-                                                <LabelText>Balance</LabelText>  
-                                                <Paragraph>
-                                                    <strong>{balance} {units}</strong>
-                                                </Paragraph>
-                                                <Details summary="Not your wallet address?">
-                                                    Make sure that you are signed into the correct account before proceeding.
-                                                </Details>
-                                            </div>
-                                    )}/>
-                                    <Button>Continue</Button>
-                                </form>
-                            </GridCol>
-                        </GridRow>
-                    </Main>
-                );
-            }}
-        </DrizzleContext.Consumer>
-    )
+                }}
+            </DrizzleContext.Consumer>
+        )
+    }
 }
 
 export default WalletAddressPage;
