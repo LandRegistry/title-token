@@ -5048,12 +5048,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xf5F685221ede9C16895cAdf85e425339CA9ef4b0",
-      "transactionHash": "0xf2131d4a41653dffd01783c714f6983c0682af3b4a91c117744e8eede948c7ab"
+      "address": "0x67b1f682B793eF3f3B5b3Ee80e3E3768c63C28A0",
+      "transactionHash": "0x057cac6d74e11a1ef08ec033d2d1c9b2e9761371bd5d4455e4af2c2743932955"
     }
   },
   "schemaVersion": "3.0.9",
-  "updatedAt": "2019-06-24T09:20:31.363Z",
+  "updatedAt": "2019-06-24T14:41:22.317Z",
   "devdoc": {
     "methods": {
       "approve(address,uint256)": {
