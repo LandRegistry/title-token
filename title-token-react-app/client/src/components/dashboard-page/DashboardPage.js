@@ -30,29 +30,27 @@ export default () => (
       }
 
       return (
-        <div>
-          <Main>
-            <Banner />
-            <StyledGridRow>
-              <GridCol setWidth="one-half">
-                <AccountDetails drizzle={drizzle} drizzleState={drizzleState}/>
-              </GridCol>
-              <GridCol setWidth="one-half">
-                <TokenDetails drizzle={drizzle} drizzleState={drizzleState}/>
-              </GridCol>
-            </StyledGridRow>
-            <StyledGridRow>
-              <GridCol>
-                <DashboardControls drizzle={drizzle} drizzleState={drizzleState} />
-              </GridCol>
-            </StyledGridRow>
-            <StyledGridRow>
-              <GridCol>
-                <OwnedTokens drizzle={drizzle} drizzleState={drizzleState} />
-              </GridCol>
-            </StyledGridRow>
-          </Main>
-        </div>
+        <Main>
+          <Banner />
+          <StyledGridRow>
+            <GridCol setWidth="one-half">
+              <AccountDetails drizzle={drizzle} drizzleState={drizzleState}/>
+            </GridCol>
+            <GridCol setWidth="one-half">
+              <TokenDetails drizzle={drizzle} drizzleState={drizzleState}/>
+            </GridCol>
+          </StyledGridRow>
+          <StyledGridRow>
+            <GridCol>
+              <DashboardControls drizzle={drizzle} drizzleState={drizzleState} />
+            </GridCol>
+          </StyledGridRow>
+          <StyledGridRow>
+            <GridCol>
+              <OwnedTokens drizzle={drizzle} drizzleState={drizzleState} />
+            </GridCol>
+          </StyledGridRow>
+        </Main>
       );
     }}
   </DrizzleContext.Consumer>

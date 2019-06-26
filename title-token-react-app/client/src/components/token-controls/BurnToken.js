@@ -1,20 +1,38 @@
 import React from "react";
+
 import LabelText from '@govuk-react/label-text';
 import Button from '@govuk-react/button';
-import { H2 } from "@govuk-react/heading";
+
+import Paragraph from "../common/Paragraph";
 import StyledInput from '../common/StyledInput';
+
 import { newContextComponents } from "drizzle-react-components";
 const { ContractForm } = newContextComponents;
 
 class BurnToken extends React.Component {
 
+    state = {  
+        userIsBurner: null,
+        isBurner: false
+    };
+    
+    componentDidMount() {
+        const { drizzle } = this.props;
+        const titleTokenContract = drizzle.contracts.TitleCore;
+    
+        const userIsBurner = titleTokenContract.methods["isBurner"].cacheCall();
+        this.setState({ userIsBurner });
+      }
+
     render() {
-        const {isBurner, drizzle, drizzleState} = this.props;
+        const { drizzle, drizzleState, tokenId } = this.props;
+        const { TitleCore } = drizzleState.contracts;
+    
+        const isBurner = TitleCore.isBurner[this.state.userIsBurner];
 
         if (isBurner) {
             return (
                 <div className="section">
-                    <H2>Burn Token</H2>
                     <ContractForm
                         drizzle={drizzle}
                         drizzleState={drizzleState}
@@ -22,18 +40,21 @@ class BurnToken extends React.Component {
                         method="burn"
                         labels={["Token ID"]}
                         render={({ inputs, inputTypes, state, handleInputChange, handleSubmit}) => (
-                            <form onSubmit={handleSubmit}>
-                                <LabelText htmlFor="token-id-to-burn">Token ID</LabelText>
-                                <StyledInput
-                                    id="token-id-to-burn"
-                                    key={inputs[0].name}
-                                    type={inputTypes[0]}
-                                    name={inputs[0].name}
-                                    value={state[inputs[0].name]}
-                                    placeholder="451"
-                                    onChange={handleInputChange}
-                                />
-                                <Button>Burn</Button>
+                            <form onSubmit={handleSubmit}>                                
+                                <div hidden={tokenId}>
+                                    <LabelText htmlFor="token-id-to-burn">Token ID</LabelText>
+                                    <StyledInput
+                                        id="token-id-to-burn"
+                                        key={inputs[0].name}
+                                        type={inputTypes[0]}
+                                        name={inputs[0].name}
+                                        value={tokenId}
+                                        placeholder="451"
+                                        onChange={handleInputChange}
+                                        disabled={tokenId}
+                                    />
+                                </div>
+                                <Button>Burn token</Button>
                             </form>
                         )}
                     />

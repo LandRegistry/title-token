@@ -7,7 +7,7 @@ import { drizzleReactHooks } from 'drizzle-react'
 import drizzleOptions from "../drizzleOptions";
 
 import Header from "./common/Header";
-import Dashboard from "./dashboard/Dashboard";
+import DashboardPage from "./dashboard-page/DashboardPage";
 import StartPage from "./start-page/StartPage";
 import IdentityVerificationPage from "./identity-verification-page/IdentityVerificationPage";
 import SelectTitlePage from "./select-title-page/SelectTitlePage";
@@ -15,6 +15,7 @@ import WalletAddressPage from "./wallet-address-page/WalletAddressPage";
 import CheckAnswersPage from "./check-answers-page/CheckAnswersPage";
 import SuccessPage from "./success-page/SuccessPage";
 import WorklistPage from "./worklist-page/WorklistPage";
+import ViewTitleInformationPageContainer from "./view-title-information-page/ViewTitleInformationPageContainer";
 
 const drizzleStore = generateStore(drizzleOptions);
 const drizzle = new Drizzle(drizzleOptions, drizzleStore);
@@ -34,7 +35,16 @@ class App extends Component {
           <Route path="/check-answers" component={CheckAnswersPage} />
           <Route path="/success" component={SuccessPage} />
           <Route path="/worklist" component={WorklistPage} />
-          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/dashboard" component={DashboardPage} />
+          <Route 
+            path="/view-title/:titleId"
+            render={props => (
+              <ViewTitleInformationPageContainer 
+                titleId={props.match.params.titleId}
+                drizzle={drizzle}
+              />
+            )}
+          />
         </Router>
       {/* </drizzleReactHooks.DrizzleProvider> */}
       </DrizzleContext.Provider>

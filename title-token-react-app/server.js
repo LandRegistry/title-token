@@ -7,9 +7,8 @@ const provider = new Web3.providers.HttpProvider("http://localhost:9545");
 const contract = require("truffle-contract");
 
 const titleCoreJSON = require('./client/src/contracts/TitleCore.json');
-const title_data_filepath = './data/titles.json';
-const court_orders_data_filepath = './data/court_orders.json';
-
+const titleDataFilepath = './data/titles.json';
+const courtOrdersDataFilepath = './data/court_orders.json';
 
 /************************************************************************************** 
  * Make sure that these addresses are updated whenever you re-deploy the network or contracts!
@@ -24,7 +23,7 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 app.use(express.json());
 
 app.get('/court-orders', (req, res) => {
-    fs.readFile(court_orders_data_filepath, function (err, data) {
+    fs.readFile(courtOrdersDataFilepath, function (err, data) {
         if(err) {
             return err;
         }
@@ -37,24 +36,24 @@ app.get('/court-orders', (req, res) => {
 });
 
 app.get('/court-orders/titles', (req, res) => {
-    let court_orders = [];
-    fs.readFile(court_orders_data_filepath, function (err, court_orders_data) {
+    let courtOrders = [];
+    fs.readFile(courtOrdersDataFilepath, function (err, courtOrdersData) {
         if(err) {
             return err;
         }
         try {
-            const court_orders_json = JSON.parse(court_orders_data.toString());
-            court_orders = court_orders_json;
-            fs.readFile(title_data_filepath, function (err, titles_data) {
+            const courtOrdersJson = JSON.parse(courtOrdersData.toString());
+            courtOrders = courtOrdersJson;
+            fs.readFile(titleDataFilepath, function (err, titlesData) {
                 if(err) {
                     return err;
                 }
                 try {
-                    const titles_json = JSON.parse(titles_data.toString());
-                    for (let court_order in court_orders) {
-                        court_orders[court_order]['title'] = titles_json[court_order];
+                    const titlesJson = JSON.parse(titlesData.toString());
+                    for (let courtOrder in courtOrders) {
+                        courtOrders[courtOrder]['title'] = titlesJson[courtOrder];
                     }
-                    res.send(court_orders);
+                    res.send(courtOrders);
                 } catch(exception) {
                     return exception;
                 }
@@ -67,12 +66,27 @@ app.get('/court-orders/titles', (req, res) => {
 });
 
 app.get('/titles', (req, res) => {
-    fs.readFile(title_data_filepath, function (err, data) {
+    fs.readFile(titleDataFilepath, function (err, data) {
         if(err) {
             return err;
         }
         try {
             res.send(data);
+        } catch(exception) {
+            return exception;
+        }
+    });
+});
+
+app.get('/titles/:titleId', (req, res) => {
+    fs.readFile(titleDataFilepath, function (err, data) {
+        const titlesJson = JSON.parse(data.toString());
+        if(err) {
+            return err;
+        }
+        try {
+            let titleJson = titlesJson[req.params.titleId.toUpperCase()];
+            res.send(titleJson);
         } catch(exception) {
             return exception;
         }

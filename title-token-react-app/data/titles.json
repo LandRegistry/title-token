@@ -12,6 +12,25 @@
         "proprietors": [
             "John Doe"
         ],
+        "price_paid": [
+            {
+                "date": "11/01/2010",
+                "amount": "£200,000"
+            }
+        ],
+        "interests": {
+            "a": [{
+                "lender": "Halifax",
+                "value": "£150,000",
+                "issue_date": "11/01/2010"
+            }],
+            "b": [{
+                "name": "Jane Biggs",
+                "wallet_address": "0x7E563849049476250e5088A1c81CD9fD425877C9",
+                "amount_owned": 1.5,
+                "purchase_date": "11/05/2019"
+            }]
+        },
         "image": "ABCD123.jpg"
     },
     "EFGH123": {

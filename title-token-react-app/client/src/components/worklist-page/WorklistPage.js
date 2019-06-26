@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Redirect } from 'react-router';
+import { Link as RouterLink } from 'react-router-dom';
 
 import Loading from "../common/Loading";
 import Paragraph from "../common/Paragraph";
@@ -109,7 +109,9 @@ class WorklistPage extends React.Component {
                                             <strong>{item.status}</strong>
                                         </Table.Cell>
                                         <Table.Cell>
-                                            <Button>View</Button>
+                                            <StyledLink as={RouterLink} to={"/view-title/" + item.title.title_number}>
+                                                <Button>View</Button>
+                                            </StyledLink>
                                         </Table.Cell>
                                     </Table.Row>
                                 )}
