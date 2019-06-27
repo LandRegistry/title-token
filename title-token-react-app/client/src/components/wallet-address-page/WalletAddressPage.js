@@ -1,28 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { DrizzleContext } from "drizzle-react";
-import styled from "styled-components";
 import { Redirect } from 'react-router';
-import { Link as RouterLink } from 'react-router-dom';
 import { newContextComponents } from "drizzle-react-components";
 
 import Loading from "../common/Loading";
 import Paragraph from "../common/Paragraph";
-import StyledInput from '../common/StyledInput';
 
 import Button from '@govuk-react/button';
 import Details from '@govuk-react/details';
 import LabelText from '@govuk-react/label-text';
-import Link from '@govuk-react/link';
 import Main from '@govuk-react/main';
 import GridCol from '@govuk-react/grid-col';
 import GridRow from '@govuk-react/grid-row';
 import Heading from '@govuk-react/heading';
 
 const { AccountData } = newContextComponents;
-
-const StyledLink = styled(Link)`
-    text-decoration: none;
-`;
 
 class WalletAddressPage extends React.Component {
     
@@ -37,11 +29,12 @@ class WalletAddressPage extends React.Component {
         this.setState({
             walletAddress: walletAddress
         })
-        localStorage.setItem('walletAddress', this.state.walletAddress);
+        // localStorage.setItem('walletAddress', this.state.walletAddress);
     }
 
     render() {
-        if (this.state.walletAddress && localStorage.getItem('walletAddress')) {
+        if (this.state.walletAddress) {
+            localStorage.setItem('walletAddress', this.state.walletAddress);
             return (
                 <Redirect
                     push 

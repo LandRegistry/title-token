@@ -71,7 +71,6 @@ const IdentityVerificationPage = () => {
                 setOwnedTitles(ownedTitles);
                 setLoading(false);
                 setError(error);
-                // setState({ ownedTitles: ownedTitles, loading: false, error: error });
             })
             .catch(err => console.log(err));
     }

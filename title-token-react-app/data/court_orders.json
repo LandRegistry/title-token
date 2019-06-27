@@ -11,6 +11,10 @@
         "date_requested": "09/06/19",
         "status": "burn"
     },
+    "EFGH456": {
+        "date_requested": "10/06/19",
+        "status": "burn"
+    },
     "MNOPQ123": {
         "date_requested": "07/06/19",
         "status": "complete"

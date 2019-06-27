@@ -3,18 +3,32 @@ import { newContextComponents } from "drizzle-react-components";
 import LabelText from '@govuk-react/label-text';
 import Button from '@govuk-react/button';
 import StyledInput from '../common/StyledInput';
-import { H2 } from "@govuk-react/heading";
 const { ContractForm } = newContextComponents;
 
 class IssueToken extends React.Component {
 
+    state = { 
+        userIsIssuer: null
+      };
+    
+      componentDidMount() {
+        const { drizzle } = this.props;
+        const titleTokenContract = drizzle.contracts.TitleCore;
+    
+        const userIsIssuer = titleTokenContract.methods["isIssuer"].cacheCall();
+        this.setState({ userIsIssuer });
+      }
+
     render() {
-        const {isIssuer, drizzle, drizzleState} = this.props;
+        const {drizzle, drizzleState} = this.props;
+
+        const { TitleCore } = drizzleState.contracts;
+
+        const isIssuer = TitleCore.isIssuer[this.state.userIsIssuer];
 
         if (isIssuer) {
             return (
                 <div className="section">
-                    <H2>Issue Token</H2>
                     <ContractForm
                         drizzle={drizzle}
                         drizzleState={drizzleState}

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { Redirect } from 'react-router';
 import styled from "styled-components";
 
@@ -51,8 +51,7 @@ const CheckAnswersPage = () => {
             })
             .catch(error => {
                 setLoading(false);
-                console.log(error);
-                setErrorText(error.error);
+                setErrorText(error.message);
             })
     }
 
@@ -72,14 +71,19 @@ const CheckAnswersPage = () => {
             },
             body: JSON.stringify(data),
         }).then(response => {
-            return response.json();
+            if (response.status === 400) {
+                throw new Error("Token already exists for " + titleId);
+            } else if (response.status === 500) {
+                throw new Error(response.statusText);
+            } else {
+                return response.json();
+            }
         }, response => {
-            throw JSON.stringify(response);
+            throw new Error(response.statusText);
         })
     };
 
     if (tokenId) {
-        console.log(tokenId)
         return  <Redirect
         push 
         to={{
@@ -118,7 +122,7 @@ const CheckAnswersPage = () => {
                                         <Table.Cell>
                                             <strong>Name</strong>
                                         </Table.Cell>
-                                        <Table.Cell>{localStorage.getItem('fullName')}</Table.Cell>
+                                        <Table.Cell>{fullName}</Table.Cell>
                                         <Table.Cell>
                                             <StyledLink href="#">
                                                 Change
@@ -130,7 +134,7 @@ const CheckAnswersPage = () => {
                                             <strong>Date of birth</strong>
                                         </Table.Cell>
                                         <Table.Cell>
-                                            {localStorage.getItem('day')} {months[localStorage.getItem('month')]} {localStorage.getItem('year')}
+                                            {date.day} {months[date.month]} {date.year}
                                         </Table.Cell>
                                         <Table.Cell>
                                             <StyledLink href="#">
@@ -143,7 +147,7 @@ const CheckAnswersPage = () => {
                                             <strong>Title number</strong>
                                         </Table.Cell>
                                         <Table.Cell>
-                                            {localStorage.getItem('titleId')}
+                                            {titleId}
                                         </Table.Cell>
                                         <Table.Cell>
                                             <StyledLink href="#">
@@ -156,7 +160,7 @@ const CheckAnswersPage = () => {
                                             <strong>Wallet address</strong>
                                         </Table.Cell>
                                         <Table.Cell>
-                                            {localStorage.getItem('walletAddress')}
+                                            {walletAddress}
                                         </Table.Cell>
                                         <Table.Cell>
                                             <StyledLink href="#">
