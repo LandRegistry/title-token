@@ -22,7 +22,7 @@ contract TitleCore is TitleBase {
     )
         public
         // Access control disabled for demonstration purposes - allow users to 'request' tokens to themselves
-        // onlyIssuer
+        onlyIssuer
         returns(uint) {
             return _issueTitleToken(_owner, _titleId);
         }

@@ -29,11 +29,12 @@ class WalletAddressPage extends React.Component {
         this.setState({
             walletAddress: walletAddress
         })
-        localStorage.setItem('walletAddress', this.state.walletAddress);
+        // localStorage.setItem('walletAddress', this.state.walletAddress);
     }
 
     render() {
-        if (this.state.walletAddress && localStorage.getItem('walletAddress')) {
+        if (this.state.walletAddress) {
+            localStorage.setItem('walletAddress', this.state.walletAddress);
             return (
                 <Redirect
                     push 

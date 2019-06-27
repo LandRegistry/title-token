@@ -13,8 +13,8 @@ const courtOrdersDataFilepath = './data/court_orders.json';
 /************************************************************************************** 
  * Make sure that these addresses are updated whenever you re-deploy the network or contracts!
 ***************************************************************************************/
-const issuer_account = "0x8A0E1f0Ab6F9935DE68742dE6298f90a2B20CC1B";
-const contract_address = "0xFe5FBD6694Aed4A702e270847E8Af2dB07439ed6"; 
+const issuerAccount = "0x8A0E1f0Ab6F9935DE68742dE6298f90a2B20CC1B";
+const contractAddress = "0x4f0155CcF8ee4b4312eE88008c9649ad0F6F4E99"; 
 
 const TitleCore = contract(titleCoreJSON);
 TitleCore.setProvider(provider);
@@ -96,10 +96,10 @@ app.get('/titles/:titleId', (req, res) => {
 app.post('/request-token', (req, res) => {
     const body = req.body;
     console.log(body);
-    TitleCore.at(contract_address)
+    TitleCore.at(contractAddress)
         .then(function(instance) {
             titleCore = instance;
-            titleCore.issueTitleToken(body.owner, body.titleId, {from: issuer_account})
+            titleCore.issueTitleToken(body.owner, body.titleId, {from: issuerAccount})
                 .then(function (result) {
 
                     //  Since making a new transaction doesn't return a result, call the titleIdToTokenIndex 

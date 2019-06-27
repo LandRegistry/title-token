@@ -18,6 +18,12 @@ const StyledParagraph = styled(Paragraph)`
 const SuccessPage = () => {
 
     const [tokenId] = useState(localStorage.getItem('tokenId'))
+    localStorage.setItem('fullName', '');
+    localStorage.setItem('day', '');
+    localStorage.setItem('month', '');
+    localStorage.setItem('year', '');
+    localStorage.setItem('titleId', '');
+    localStorage.setItem('walletAddress', '');
 
     console.log("tokenId:", tokenId);
 

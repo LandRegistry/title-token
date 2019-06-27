@@ -97,7 +97,7 @@ class ViewTitleInformationPage extends React.Component {
             );
         }
 
-        const tokenExists = (tokenId && tokenId.value && tokenId.value !== 0)
+        const tokenExists = (tokenId && tokenId.value && tokenId.value !== "0")
 
         const tokenControls = (tokenExists && 
             <div>

@@ -51,8 +51,7 @@ const CheckAnswersPage = () => {
             })
             .catch(error => {
                 setLoading(false);
-                // console.log(error);
-                setErrorText(error);
+                setErrorText(error.message);
             })
     }
 
@@ -73,7 +72,6 @@ const CheckAnswersPage = () => {
             body: JSON.stringify(data),
         }).then(response => {
             if (response.status === 400) {
-                console.log(response);
                 throw new Error("Token already exists for " + titleId);
             } else if (response.status === 500) {
                 throw new Error(response.statusText);
@@ -86,7 +84,6 @@ const CheckAnswersPage = () => {
     };
 
     if (tokenId) {
-        console.log(tokenId)
         return  <Redirect
         push 
         to={{

@@ -22,6 +22,35 @@ npm install
 npm install truffle -g
 truffle compile
 truffle migrate
+```
+
+Update server.js with the values output to the console by `truffle migrate`.
+
+e.g. for the following output
+``` 
+> transaction hash: 0xfb52a2d0318bf486248159b80be308431efb0324315815ccf8042797ea3b2d38
+> Blocks: 0            Seconds: 0
+> contract address:    0x4f0155CcF8ee4b4312eE88008c9649ad0F6F4E99
+> block number:        415
+> block timestamp:     1561638761
+> account:             0x8A0E1f0Ab6F9935DE68742dE6298f90a2B20CC1B
+> balance:             94.69590286
+> gas used:            4388864
+> gas price:           20 gwei
+> value sent:          0 ETH
+> total cost:          0.08777728 ETH 
+```
+
+Set these values:
+
+```javascript
+const issuerAccount = "0x8A0E1f0Ab6F9935DE68742dE6298f90a2B20CC1B"
+const contractAddress = "0x4f0155CcF8ee4b4312eE88008c9649ad0F6F4E99"
+```
+
+Finally...
+
+```bash
 cd app 
 npm install
 npm start
