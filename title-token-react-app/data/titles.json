@@ -10,7 +10,7 @@
         },
         "description": "Three bedroom, semi-detached property",
         "proprietors": [
-            "John Doe"
+            "John Smith"
         ],
         "price_paid": [
             {
@@ -46,6 +46,25 @@
         "proprietors": [
             "Eva Porter"
         ],
+        "price_paid": [
+            {
+                "date": "11/01/2010",
+                "amount": "£200,000"
+            }
+        ],
+        "interests": {
+            "a": [{
+                "lender": "Halifax",
+                "value": "£150,000",
+                "issue_date": "11/01/2010"
+            }],
+            "b": [{
+                "name": "Jane Biggs",
+                "wallet_address": "0x7E563849049476250e5088A1c81CD9fD425877C9",
+                "amount_owned": 1.5,
+                "purchase_date": "11/05/2019"
+            }]
+        },
         "image": "ABCD123.jpg"
     },
     "IJKL123": {
@@ -61,6 +80,25 @@
         "proprietors": [
             "Rebecca Stokes"
         ],
+        "price_paid": [
+            {
+                "date": "11/01/2010",
+                "amount": "£200,000"
+            }
+        ],
+        "interests": {
+            "a": [{
+                "lender": "Halifax",
+                "value": "£150,000",
+                "issue_date": "11/01/2010"
+            }],
+            "b": [{
+                "name": "Jane Biggs",
+                "wallet_address": "0x7E563849049476250e5088A1c81CD9fD425877C9",
+                "amount_owned": 1.5,
+                "purchase_date": "11/05/2019"
+            }]
+        },
         "image": "ABCD123.jpg"
     },
     "MNOPQ123": {
@@ -76,6 +114,25 @@
         "proprietors": [
             "Mark Read"
         ],
+        "price_paid": [
+            {
+                "date": "11/01/2010",
+                "amount": "£200,000"
+            }
+        ],
+        "interests": {
+            "a": [{
+                "lender": "Halifax",
+                "value": "£150,000",
+                "issue_date": "11/01/2010"
+            }],
+            "b": [{
+                "name": "Jane Biggs",
+                "wallet_address": "0x7E563849049476250e5088A1c81CD9fD425877C9",
+                "amount_owned": 1.5,
+                "purchase_date": "11/05/2019"
+            }]
+        },
         "image": "ABCD123.jpg"
     },
     "RSTU123": {
@@ -91,6 +148,25 @@
         "proprietors": [
             "Amy Briggs"
         ],
+        "price_paid": [
+            {
+                "date": "11/01/2010",
+                "amount": "£200,000"
+            }
+        ],
+        "interests": {
+            "a": [{
+                "lender": "Halifax",
+                "value": "£150,000",
+                "issue_date": "11/01/2010"
+            }],
+            "b": [{
+                "name": "Jane Biggs",
+                "wallet_address": "0x7E563849049476250e5088A1c81CD9fD425877C9",
+                "amount_owned": 1.5,
+                "purchase_date": "11/05/2019"
+            }]
+        },
         "image": "ABCD123.jpg"
     },
     "VWXY123": {
@@ -106,6 +182,25 @@
         "proprietors": [
             "Sam Harris"
         ],
+        "price_paid": [
+            {
+                "date": "11/01/2010",
+                "amount": "£200,000"
+            }
+        ],
+        "interests": {
+            "a": [{
+                "lender": "Halifax",
+                "value": "£150,000",
+                "issue_date": "11/01/2010"
+            }],
+            "b": [{
+                "name": "Jane Biggs",
+                "wallet_address": "0x7E563849049476250e5088A1c81CD9fD425877C9",
+                "amount_owned": 1.5,
+                "purchase_date": "11/05/2019"
+            }]
+        },
         "image": "ABCD123.jpg"
     },
     "EFGH456": {
@@ -121,6 +216,25 @@
         "proprietors": [
             "John Doe"
         ],
+        "price_paid": [
+            {
+                "date": "11/01/2010",
+                "amount": "£200,000"
+            }
+        ],
+        "interests": {
+            "a": [{
+                "lender": "Halifax",
+                "value": "£150,000",
+                "issue_date": "11/01/2010"
+            }],
+            "b": [{
+                "name": "Jane Biggs",
+                "wallet_address": "0x7E563849049476250e5088A1c81CD9fD425877C9",
+                "amount_owned": 1.5,
+                "purchase_date": "11/05/2019"
+            }]
+        },
         "image": "ABCD123.jpg"
     }
 }

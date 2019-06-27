@@ -1,6 +1,5 @@
 import React from "react";
 
-import Main from '@govuk-react/main';
 import { H1 } from "@govuk-react/heading";
 
 import styled, { keyframes } from 'styled-components';

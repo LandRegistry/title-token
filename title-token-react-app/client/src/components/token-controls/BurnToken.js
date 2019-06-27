@@ -3,7 +3,6 @@ import React from "react";
 import LabelText from '@govuk-react/label-text';
 import Button from '@govuk-react/button';
 
-import Paragraph from "../common/Paragraph";
 import StyledInput from '../common/StyledInput';
 
 import { newContextComponents } from "drizzle-react-components";
@@ -40,7 +39,7 @@ class BurnToken extends React.Component {
                         method="burn"
                         labels={["Token ID"]}
                         render={({ inputs, inputTypes, state, handleInputChange, handleSubmit}) => (
-                            <form onSubmit={handleSubmit}>                                
+                            <form onSubmit={handleSubmit}>
                                 <div hidden={tokenId}>
                                     <LabelText htmlFor="token-id-to-burn">Token ID</LabelText>
                                     <StyledInput

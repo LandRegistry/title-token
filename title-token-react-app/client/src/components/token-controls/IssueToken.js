@@ -3,7 +3,6 @@ import { newContextComponents } from "drizzle-react-components";
 import LabelText from '@govuk-react/label-text';
 import Button from '@govuk-react/button';
 import StyledInput from '../common/StyledInput';
-import { H2 } from "@govuk-react/heading";
 const { ContractForm } = newContextComponents;
 
 class IssueToken extends React.Component {
@@ -30,7 +29,6 @@ class IssueToken extends React.Component {
         if (isIssuer) {
             return (
                 <div className="section">
-                    <H2>Issue Token</H2>
                     <ContractForm
                         drizzle={drizzle}
                         drizzleState={drizzleState}

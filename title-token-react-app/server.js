@@ -14,7 +14,7 @@ const courtOrdersDataFilepath = './data/court_orders.json';
  * Make sure that these addresses are updated whenever you re-deploy the network or contracts!
 ***************************************************************************************/
 const issuer_account = "0x8A0E1f0Ab6F9935DE68742dE6298f90a2B20CC1B";
-const contract_address = "0x67b1f682B793eF3f3B5b3Ee80e3E3768c63C28A0"; 
+const contract_address = "0xFe5FBD6694Aed4A702e270847E8Af2dB07439ed6"; 
 
 const TitleCore = contract(titleCoreJSON);
 TitleCore.setProvider(provider);

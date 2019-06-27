@@ -3,8 +3,6 @@ import styled from "styled-components";
 import { Link as RouterLink } from 'react-router-dom';
 
 import Loading from "../common/Loading";
-import Paragraph from "../common/Paragraph";
-import StyledInput from '../common/StyledInput';
 
 import Button from '@govuk-react/button';
 import ErrorText from '@govuk-react/error-text';
@@ -14,10 +12,6 @@ import GridCol from '@govuk-react/grid-col';
 import GridRow from '@govuk-react/grid-row';
 import { H1 } from "@govuk-react/heading";
 import Table from '@govuk-react/table';
-
-const StyledParagraph = styled(Paragraph)`
-    padding-bottom: 20px;
-`;
 
 const StyledLink = styled(Link)`
     text-decoration: none;
@@ -37,9 +31,9 @@ class WorklistPage extends React.Component {
                 let error = '';
                 let courtOrders = [];
                 for (let key in res) {
-                    if (res[key]['status'] == 'move') {
+                    if (res[key]['status'] === 'move') {
                         res[key]['status'] = 'Move token';
-                    } else if(res[key]['status'] == 'burn'){
+                    } else if(res[key]['status'] === 'burn'){
                         res[key]['status'] = 'Burn token';
                     } else {
                         res[key]['status'] = 'Complete';
@@ -83,19 +77,23 @@ class WorklistPage extends React.Component {
                                 head={
                                     <Table.Row>
                                         <Table.CellHeader>Title address</Table.CellHeader>
+                                        <Table.CellHeader>Title number</Table.CellHeader>
                                         <Table.CellHeader>Owner</Table.CellHeader>
-                                        <Table.CellHeader>Additional documents</Table.CellHeader>
+                                        <Table.CellHeader setWidth="15%">Additional documents</Table.CellHeader>
                                         <Table.CellHeader>Date requested</Table.CellHeader>
                                         <Table.CellHeader setWidth="20%">Date Actions</Table.CellHeader>
                                         <Table.CellHeader></Table.CellHeader>
                                     </Table.Row>
                                 }>
                                 {this.state.courtOrders.map((item, key) => 
-                                    <Table.Row>
+                                    <Table.Row key={key}>
                                         <Table.Cell>
                                             {item.title.address.property_name_number + " " + item.title.address.street_name},<br />
                                             {item.title.address.town_city},<br />
                                             {item.title.address.postcode}
+                                        </Table.Cell>
+                                        <Table.Cell>
+                                            {item.title.title_number}
                                         </Table.Cell>
                                         <Table.Cell>{item.title.proprietors[0]}</Table.Cell>
                                         <Table.Cell>

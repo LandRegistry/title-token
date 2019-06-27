@@ -12,6 +12,8 @@ contract TitleCore is TitleBase {
     constructor() public {
         issuerAddress = msg.sender;
         burnerAddress = msg.sender;
+
+        _issueTitleToken(msg.sender, "Genesis");
     }
 
     function issueTitleToken(
@@ -46,20 +48,6 @@ contract TitleCore is TitleBase {
         delete titleIdToTokenIndex[titleId];
 
         _burn(_id);
-    }
-
-    function transfer(address _to, uint256 _tokenId) external {
-        // Safety check to prevent against an unexpected 0x0 default.
-        require(_to != address(0));
-        // Disallow transfers to this contract to prevent accidental misuse.
-        // The contract should never own any titles
-        require(_to != address(this));
-
-        // You can only send your own title.
-        // require(_owns(msg.sender, _tokenId));
-
-        // Reassign ownership, clear pending approvals, emit Transfer event.
-        _transfer(msg.sender, _to, _tokenId);
     }
 
     function ownedTokens(

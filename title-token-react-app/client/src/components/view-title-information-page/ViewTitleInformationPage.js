@@ -1,7 +1,7 @@
 import React from "react";
 import styled from 'styled-components';
 
-import { H1, H2, H3, H4 } from '@govuk-react/heading';
+import { H1, H2, H3 } from '@govuk-react/heading';
 import Link from '@govuk-react/link';
 import Main from '@govuk-react/main';
 import GridRow from '@govuk-react/grid-row';
@@ -80,7 +80,8 @@ class ViewTitleInformationPage extends React.Component {
     render() {
         const { titleId, drizzle, drizzleState} = this.props;
         const { TitleCore } = this.props.drizzleState.contracts;
-        const tokenId = TitleCore.titleIdToTokenIndex[this.state.tokenIdKey]
+        const tokenId = TitleCore.titleIdToTokenIndex[this.state.tokenIdKey];
+        console.log(tokenId && tokenId.value);
 
         if (this.state.error) {
             return (
@@ -96,17 +97,54 @@ class ViewTitleInformationPage extends React.Component {
             );
         }
 
+        const tokenExists = (tokenId && tokenId.value && tokenId.value !== 0)
+
+        const tokenControls = (tokenExists && 
+            <div>
+                <H2>Transfer title ownership token</H2>
+                <Paragraph>
+                    Enter the new owner's digital wallet address
+                </Paragraph>
+                <TransferToken
+                    drizzle={drizzle}
+                    drizzleState={drizzleState}
+                    tokenId={tokenId.value}
+                />
+
+                <H2>Burn token</H2>
+                <Paragraph>
+                    Burning the token wil destroy the token and its properties permanantly.
+                </Paragraph>
+                <BurnToken 
+                    drizzle={drizzle}
+                    drizzleState={drizzleState}
+                    tokenId={tokenId.value}
+                />
+            </div>
+        )
+
         return (
             <Main>
-                <GridRow>
+                <StyledGridRow>
                     <GridCol setWidth="two-thirds">
-                        <H1>{this.state.titleId}</H1>
+                        <H1>{titleId}</H1>
+
                         <H3>
                             Token ID
                         </H3>
-                        <Paragraph>
-                            {tokenId && tokenId.value}
-                        </Paragraph>
+                        {tokenExists && 
+                            <Paragraph>
+                                {tokenId.value}
+                            </Paragraph>
+
+
+                        }
+
+                        {!tokenExists && 
+                            <ErrorText>
+                                N/A
+                            </ErrorText>
+                        }
 
                         <H3>
                             Title owner
@@ -157,44 +195,33 @@ class ViewTitleInformationPage extends React.Component {
                             </div>
                         ))}
 
-                        {(this.state.title.interests.b && (
-                            <H3>
-                                B. Charges and beneficial interests
-                            </H3>
-                        ))}
-                        {this.state.title.interests.b.map((item, key) => (
-                            <div key={key}>
-                                <Paragraph>
-                                    <strong>Investor {key+1} - {item.name}</strong>
-                                </Paragraph>
-                                <Paragraph>
-                                    <strong>Wallet address:</strong> {item.wallet_address}
-                                </Paragraph>
-                                <Paragraph>
-                                    <strong>Amount owned:</strong> {item.amount_owned}%
-                                </Paragraph>
-                                <Paragraph>
-                                    <strong>Purchase date:</strong> {item.purchase_date}
-                                </Paragraph>
+                        {tokenExists && 
+                            <div>
+                                {(this.state.title.interests.b && (
+                                    <H3>
+                                        B. Charges and beneficial interests
+                                    </H3>
+                                ))}
+                                {this.state.title.interests.b.map((item, key) => (
+                                    <div key={key}>
+                                        <Paragraph>
+                                            <strong>Investor {key+1} - {item.name}</strong>
+                                        </Paragraph>
+                                        <Paragraph>
+                                            <strong>Wallet address:</strong> {item.wallet_address}
+                                        </Paragraph>
+                                        <Paragraph>
+                                            <strong>Amount owned:</strong> {item.amount_owned}%
+                                        </Paragraph>
+                                        <Paragraph>
+                                            <strong>Purchase date:</strong> {item.purchase_date}
+                                        </Paragraph>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
+                        }
                     
-                        <H2>Transfer title ownership token</H2>
-                        <TransferToken
-                            drizzle={drizzle}
-                            drizzleState={drizzleState}
-                            tokenId={tokenId && tokenId.value}
-                        />
-
-                        <H2>Burn token</H2>
-                        <Paragraph>
-                            Burning the token wil destroy the token and its properties permenantly.
-                        </Paragraph>
-                        <BurnToken 
-                            drizzle={drizzle}
-                            drizzleState={drizzleState}
-                            tokenId={tokenId && tokenId.value}
-                        />
+                    {tokenControls}
                         
                     </GridCol>
                     <GridCol setWidth="one-third">
@@ -204,7 +231,7 @@ class ViewTitleInformationPage extends React.Component {
                             Court order information
                         </StyledLink>
                     </GridCol>
-                </GridRow>
+                </StyledGridRow>
             </Main>
         );
     }
