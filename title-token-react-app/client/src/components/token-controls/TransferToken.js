@@ -35,7 +35,7 @@ class TransferToken extends React.Component {
                         drizzle={drizzle}
                         drizzleState={drizzleState}
                         contract="TitleCore"
-                        method="safeTransferFrom"
+                        method="ownerTransferFrom"
                         labels={["From Address", "To Address", "Token ID"]}
                         render={({ inputs, inputTypes, state, handleInputChange, handleSubmit}) => (
                             <form onSubmit={handleSubmit}>
