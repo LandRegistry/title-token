@@ -2,9 +2,8 @@ pragma solidity ^0.5.8;
 
 import "./TitleBase.sol";
 import "openzeppelin-solidity/contracts/token/ERC721/ERC721Burnable.sol";
-import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
-contract TitleCore is TitleBase, ERC721Burnable, Ownable {
+contract TitleCore is TitleBase, ERC721Burnable {
 
     // Set in case the core contract is broken and an upgrade is required
     address public newContractAddress;
@@ -42,13 +41,15 @@ contract TitleCore is TitleBase, ERC721Burnable, Ownable {
     }
 
     function burn(uint256 _id) public {
+        require(_isApprovedOrOwner(msg.sender, _id), "ERC721Burnable: caller is not owner nor approved");
+
         // Get the Title ID
         string memory titleId = titles[_id].titleId;
 
         // Update mappings
         delete titleIdToTokenIndex[titleId];
 
-        super.burn(_id);
+        _burn(msg.sender, _id);
     }
 
     function ownerBurn(uint256 _id) public onlyOwner {

@@ -5,8 +5,9 @@ pragma solidity ^0.5.8;
 
 import "./TitleAccessControl.sol";
 import "openzeppelin-solidity/contracts/token/ERC721/ERC721Full.sol";
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
-contract TitleBase is TitleAccessControl, ERC721Full {
+contract TitleBase is TitleAccessControl, ERC721Full, Ownable {
 
     constructor() public
         ERC721Full("TitleToken", "TT") {}
@@ -22,6 +23,11 @@ contract TitleBase is TitleAccessControl, ERC721Full {
     /// @dev An array containing the Title struct for all Titles in existence. The ID
     ///  of each Title is actually an index into this array
     Title[] titles;
+
+    /// @dev A mapping from TokenIDs to an address that has been approved to call
+    ///  transferFrom(). Each Token can only have one approved address for transfer
+    ///  at any time. A zero value means no approval is outstanding.
+    mapping (uint256 => address) public tokenIndexToApproved;
 
     /// @dev A mapping from TitleIDs to the associated token ID.
     mapping (string => uint256) public titleIdToTokenIndex;
