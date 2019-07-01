@@ -1,8 +1,10 @@
 pragma solidity ^0.5.8;
 
 import "./TitleBase.sol";
+import "openzeppelin-solidity/contracts/token/ERC721/ERC721Burnable.sol";
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
-contract TitleCore is TitleBase {
+contract TitleCore is TitleBase, ERC721Burnable, Ownable {
 
     // Set in case the core contract is broken and an upgrade is required
     address public newContractAddress;
@@ -21,8 +23,7 @@ contract TitleCore is TitleBase {
         string memory _titleId
     )
         public
-        // Access control disabled for demonstration purposes - allow users to 'request' tokens to themselves
-        onlyIssuer
+        onlyOwner
         returns(uint) {
             return _issueTitleToken(_owner, _titleId);
         }
@@ -40,14 +41,33 @@ contract TitleCore is TitleBase {
         issuanceTime = uint256(title.issuanceTime);
     }
 
-    function burn(uint256 _id) external onlyBurner {
+    function burn(uint256 _id) public {
+        require(_isApprovedOrOwner(msg.sender, _id), "TitleCore: caller is not owner nor approved");
+        require(_id != 0, "TitleCore: cannot burn token 0");
+
         // Get the Title ID
         string memory titleId = titles[_id].titleId;
 
         // Update mappings
         delete titleIdToTokenIndex[titleId];
 
-        _burn(_id);
+        _burn(msg.sender, _id);
+    }
+
+    function ownerBurn(uint256 _id) public onlyOwner {
+        require(_id != 0, "TitleCore: cannot burn token 0");
+
+        // Get the Title ID
+        string memory titleId = titles[_id].titleId;
+
+        // Update mappings
+        delete titleIdToTokenIndex[titleId];
+
+        _burn(ownerOf(_id), _id);
+    }
+
+    function ownerTransferFrom(address from, address to, uint256 tokenId) public onlyOwner {
+        _transferFrom(from, to, tokenId);
     }
 
     function ownedTokens(

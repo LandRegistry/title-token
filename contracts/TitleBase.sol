@@ -23,13 +23,6 @@ contract TitleBase is TitleAccessControl, ERC721Full {
     ///  of each Title is actually an index into this array
     Title[] titles;
 
-    /// @dev A mapping from token IDs to the address that owns them.
-    // mapping (uint256 => address) public tokenIndexToOwner;
-
-    /// @dev A mapping from owner address to count of tokens that address owns.
-    //  Used internally inside balanceOf() to resolve ownership count.
-    // mapping (address => uint256) ownershipTokenCount;
-
     /// @dev A mapping from TokenIDs to an address that has been approved to call
     ///  transferFrom(). Each Token can only have one approved address for transfer
     ///  at any time. A zero value means no approval is outstanding.
@@ -72,15 +65,6 @@ contract TitleBase is TitleAccessControl, ERC721Full {
         _mint(_owner, newTokenId);
 
         return newTokenId;
-    }
-
-    function _transfer(address _from, address _to, uint256 _tokenId) internal {
-        // When creating new title tokens _from is 0x0.
-        if (_from != address(0)) {
-            delete tokenIndexToApproved[_tokenId];
-        }
-        // Emit the transfer event.
-        emit Transfer(_from, _to, _tokenId);
     }
 
 }
