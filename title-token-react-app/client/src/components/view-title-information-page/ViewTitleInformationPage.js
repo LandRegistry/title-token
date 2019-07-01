@@ -1,5 +1,6 @@
 import React from "react";
-import styled from 'styled-components';
+import styled from 'styled-components'
+import { newContextComponents } from "drizzle-react-components";
 
 import { H1, H2, H3 } from '@govuk-react/heading';
 import Link from '@govuk-react/link';
@@ -12,6 +13,8 @@ import Loading from "../common/Loading";
 import Paragraph from "../common/Paragraph";
 import BurnToken from "../token-controls/BurnToken";
 import TransferToken from "../token-controls/TransferToken";
+
+const { ContractData } = newContextComponents;
 
 const StyledGridRow = styled(GridRow)`
   padding-bottom: 1.5em;
@@ -38,7 +41,6 @@ class ViewTitleInformationPage extends React.Component {
     componentDidMount() {
         const { titleId, drizzle } = this.props;
         const contract = drizzle.contracts.TitleCore;
-        console.log(this.props);
     
         // get and save the key for the variable we are interested in
         const tokenIdKey = contract.methods["titleIdToTokenIndex"].cacheCall(titleId);
@@ -62,7 +64,6 @@ class ViewTitleInformationPage extends React.Component {
                     'loading': false,
                     'title': res
                 });
-                console.log(this.state);
             })
             .catch(error => this.setState({error: error}));
     }
@@ -81,7 +82,6 @@ class ViewTitleInformationPage extends React.Component {
         const { titleId, drizzle, drizzleState} = this.props;
         const { TitleCore } = this.props.drizzleState.contracts;
         const tokenId = TitleCore.titleIdToTokenIndex[this.state.tokenIdKey];
-        console.log(tokenId && tokenId.value);
 
         if (this.state.error) {
             return (
@@ -130,28 +130,12 @@ class ViewTitleInformationPage extends React.Component {
                         <H1>{titleId}</H1>
 
                         <H3>
-                            Token ID
-                        </H3>
-                        {tokenExists && 
-                            <Paragraph>
-                                {tokenId.value}
-                            </Paragraph>
-
-
-                        }
-
-                        {!tokenExists && 
-                            <ErrorText>
-                                N/A
-                            </ErrorText>
-                        }
-
-                        <H3>
                             Title owner
                         </H3>
                         <Paragraph>
                             {this.state.title.proprietors[0]}
                         </Paragraph>
+
 
                         <H3>
                             Title address
@@ -195,6 +179,7 @@ class ViewTitleInformationPage extends React.Component {
                             </div>
                         ))}
 
+
                         {tokenExists && 
                             <div>
                                 {(this.state.title.interests.b && (
@@ -220,9 +205,42 @@ class ViewTitleInformationPage extends React.Component {
                                 ))}
                             </div>
                         }
+
+                    <H3>
+                        Token ID
+                    </H3>
+                    {tokenExists && 
+                        <div>
+                            <Paragraph>
+                                {tokenId.value}
+                            </Paragraph>
+
+                            <H3>
+                                Token wallet address
+                            </H3>
+                            <ContractData
+                                drizzle={drizzle}
+                                drizzleState={drizzleState}
+                                contract="TitleCore"
+                                method="ownerOf"
+                                methodArgs={tokenId && tokenId.value}
+                                render={walletAddress => (
+                                    <Paragraph>
+                                        {walletAddress}
+                                    </Paragraph>
+                                )}
+                            />
+                        </div>
+                    }
+
+                    {!tokenExists && 
+                        <ErrorText>
+                            N/A
+                        </ErrorText>
+                    }
                     
                     {tokenControls}
-                        
+
                     </GridCol>
                     <GridCol setWidth="one-third">
                         <StyledImage src={process.env.PUBLIC_URL + '/images/' + this.state.title.image} width="100%"></StyledImage>

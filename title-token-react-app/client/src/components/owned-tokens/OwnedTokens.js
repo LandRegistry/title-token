@@ -10,8 +10,6 @@ class OwnedTokens extends React.Component {
     componentDidMount() {
         const { drizzle, drizzleState} = this.props;
         const titleTokenContract = drizzle.contracts.TitleCore;
-        console.log(drizzle);
-        console.log(drizzleState);
         const balanceOfKey = titleTokenContract.methods["balanceOf"].cacheCall(drizzleState.accounts[0]);
         this.setState({ balanceOfKey });
     }

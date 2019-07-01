@@ -5,9 +5,8 @@ pragma solidity ^0.5.8;
 
 import "./TitleAccessControl.sol";
 import "openzeppelin-solidity/contracts/token/ERC721/ERC721Full.sol";
-import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
-contract TitleBase is TitleAccessControl, ERC721Full, Ownable {
+contract TitleBase is TitleAccessControl, ERC721Full {
 
     constructor() public
         ERC721Full("TitleToken", "TT") {}
@@ -67,14 +66,5 @@ contract TitleBase is TitleAccessControl, ERC721Full, Ownable {
 
         return newTokenId;
     }
-
-    // function _transfer(address _from, address _to, uint256 _tokenId) internal {
-    //     // When creating new title tokens _from is 0x0.
-    //     if (_from != address(0)) {
-    //         delete tokenIndexToApproved[_tokenId];
-    //     }
-    //     // Emit the transfer event.
-    //     emit Transfer(_from, _to, _tokenId);
-    // }
 
 }

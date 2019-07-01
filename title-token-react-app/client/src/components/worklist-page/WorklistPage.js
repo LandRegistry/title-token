@@ -43,7 +43,6 @@ class WorklistPage extends React.Component {
                 if (!courtOrders.length > 0) {
                     error = "No court orders found";
                 }
-                console.log(courtOrders);
                 this.setState({ courtOrders: courtOrders, loading: false, error: error });
             })
             .catch(err => console.log(err));

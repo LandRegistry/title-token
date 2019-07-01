@@ -25,8 +25,6 @@ const SuccessPage = () => {
     localStorage.setItem('titleId', '');
     localStorage.setItem('walletAddress', '');
 
-    console.log("tokenId:", tokenId);
-
     return (
         <Main>
             <GridRow>
