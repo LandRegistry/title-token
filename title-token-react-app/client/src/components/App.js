@@ -16,6 +16,8 @@ import SuccessPage from "./success-page/SuccessPage";
 import WorklistPage from "./worklist-page/WorklistPage";
 import ViewTitleInformationPageContainer from "./view-title-information-page/ViewTitleInformationPageContainer";
 
+require('dotenv').config({path: "../.env"});
+
 const drizzleStore = generateStore(drizzleOptions);
 const drizzle = new Drizzle(drizzleOptions, drizzleStore);
 

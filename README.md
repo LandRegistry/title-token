@@ -17,6 +17,8 @@ This project was initialised using the [TokenTutorial Truffle Box ](https://truf
 
 ## Getting started
 
+### Compiling and deploying the smart contracts
+
 ```bash
 npm install
 npm install truffle -g
@@ -41,17 +43,47 @@ e.g. for the following output
 > total cost:          0.08777728 ETH 
 ```
 
-Set these values:
+### Running the backend server
 
-```javascript
-const issuerAccount = "0x8A0E1f0Ab6F9935DE68742dE6298f90a2B20CC1B"
-const contractAddress = "0x4f0155CcF8ee4b4312eE88008c9649ad0F6F4E99"
-```
-
-Finally...
+Create a .env file in the **root directory** with the following variables set:
 
 ```bash
-cd app 
+TITLE_DATA_FILEPATH="./data/titles.json" # Filepath to title JSON data
+COURT_ORDER_DATA_FILEPATH="./data/court_orders.json" # Filepath to court order JSON data
+PRIVATE_KEY_LOCATION="/Users/*/Library/Ethereum/keystore/*" # Filepath to issuer account private key. Used to sign transactions on the backend
+ISSUER_ACCOUNT=0x8A0E1f0Ab6F9935DE68742dE6298f90a2B20CC1B # Token issuer address - visible in the output from `truffle migrate`
+CONTRACT_ADDRESS=0x4f0155CcF8ee4b4312eE88008c9649ad0F6F4E99 # Title token contract address - visible in the output from `truffle migrate`
+HTTP_PROVIDER="http://localhost:9545" # Web3 HTTP provider
+WEBSOCKET_URL="ws://localhost:9545" # Web3 WebSocket provider
+```
+
+Run the Node.js/Express backend server:
+
+```bash
+cd title-token-react-app
 npm install
 npm start
 ```
+
+### Running the frontend
+
+Create a .env file in **./title-token-react-app/client** with the following variables set:
+
+> NOTE: These are the same variables used in the root .env, prefixed by 'REACT_APP_' to be embedded in the build.
+> 
+> There's probably a way to avoid repeating these here, but I haven't spent any time looking at it. Any related issues/pull requests welcome.
+
+```bash
+REACT_APP_ISSUER_ACCOUNT=0x8A0E1f0Ab6F9935DE68742dE6298f90a2B20CC1B # Token issuer address
+REACT_APP_CONTRACT_ADDRESS=0x4f0155CcF8ee4b4312eE88008c9649ad0F6F4E99 # Title token contract address
+REACT_APP_HTTP_PROVIDER="http://localhost:9545" # Web3 HTTP provider
+REACT_APP_WEBSOCKET_URL="ws://localhost:9545" # Web3 WebSocket provider
+```
+
+Finally, open a new console tab and navigate to `<APPLICATION_ROOT>/title-token-react-app/client` and run the following:
+
+```bash
+npm install
+npm start
+```
+

@@ -1,0 +1,70 @@
+{
+    "ABCD123": {
+        "title_number": "ABCD123",
+        "address": { 
+            "property_name_number": "Trafalgar House",
+            "street_name": "Bedford Park",
+            "town_city": "Croydon",
+            "county": "",
+            "postcode": "CR0 2AQ"
+        },
+        "valuation": "£10,000,000",
+        "description": "A £10m office building for the Land Registry has become a UK benchmark in sustainable building design. Trafalgar House, in Croydon, has been described as the commercial version of an EcoHome. Since its completion in 2007, the striking nine-storey development has received a maximum “excellent” rating by BREEAM, the Building Research Establishment’s Environmental Assessment Method.",
+        "proprietors": [
+            "John Abbott"
+        ],
+        "price_paid": [],
+        "interests": {
+            "a": [],
+            "b": []
+        },
+        "image": "trafalgar_house.jpg"
+    },
+    "EFGH123": {
+        "title_number": "EFGH123",
+        "address": { 
+            "property_name_number": "Fratton Yard",
+            "street_name": "Digital Street",
+            "town_city": "Bristol",
+            "county": "",
+            "postcode": "BR1 1AA"
+        },
+        "valuation": "£25,000,000",
+        "description": "Framed around a secluded courtyard, this refurbished building offers 77,500 square feet of modern industrial style office space designed as a bright new home for forward-thinking business.",
+        "proprietors": [
+            "Amy Jones"
+        ],
+        "price_paid": [
+            {
+                "date": "11/03/2014",
+                "amount": "£20,000,000"
+            }
+        ],
+        "interests": {
+            "a": [],
+            "b": []
+        },
+        "image": "fratton_yard.jpg"
+    },
+    "IJKL123": {
+        "title_number": "IJKL123",
+        "address": { 
+            "property_name_number": "Toby House",
+            "street_name": "Digital Street",
+            "town_city": "Bristol",
+            "county": "",
+            "postcode": "BR1 1AA"
+        },
+        "valuation": "£4,500,000",
+        "description": "An apartment block comprising of 17 apartments, Toby House is a major residential development in the heart of Bristol.",
+        "proprietors": [
+            "Bob White"
+        ],
+        "price_paid": [],
+        "interests": {
+            "a": [],
+            "b": []
+        },
+        "image": "toby_house.jpg"
+    }
+}

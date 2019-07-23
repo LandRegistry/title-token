@@ -35,7 +35,8 @@ class ViewTitleInformationPage extends React.Component {
         tokenId: null,
         tokenIdKey: null,
         titleId: '',
-        title: {}
+        title: {},
+        isOwner: false
     };
 
     componentDidMount() {
@@ -82,7 +83,10 @@ class ViewTitleInformationPage extends React.Component {
         const { titleId, drizzle, drizzleState} = this.props;
         const { TitleCore } = this.props.drizzleState.contracts;
         const tokenId = TitleCore.titleIdToTokenIndex[this.state.tokenIdKey];
-
+        
+        drizzle.contracts.TitleCore.methods.isOwner().call({from: drizzleState.accounts[0]})
+            .then((result) => this.setState({isOwner: result}))
+        
         if (this.state.error) {
             return (
                 <ErrorText>
@@ -113,7 +117,7 @@ class ViewTitleInformationPage extends React.Component {
 
                 <H2>Burn token</H2>
                 <Paragraph>
-                    Burning the token wil destroy the token and its properties permanantly.
+                    Burning the token will destroy the token and its properties permanantly.
                 </Paragraph>
                 <BurnToken 
                     drizzle={drizzle}
@@ -130,6 +134,39 @@ class ViewTitleInformationPage extends React.Component {
                         <H1>{titleId}</H1>
 
                         <H3>
+                            Token ID
+                        </H3>
+                        {tokenExists && 
+                            <div>
+                                <Paragraph>
+                                    {tokenId.value}
+                                </Paragraph>
+
+                                <H3>
+                                    Owner wallet address
+                                </H3>
+                                <ContractData
+                                    drizzle={drizzle}
+                                    drizzleState={drizzleState}
+                                    contract="TitleCore"
+                                    method="ownerOf"
+                                    methodArgs={[tokenId && tokenId.value]}
+                                    render={walletAddress => (
+                                        <Paragraph>
+                                            {walletAddress}
+                                        </Paragraph>
+                                    )}
+                                />
+                            </div>
+                        }
+
+                        {!tokenExists && 
+                            <ErrorText>
+                                N/A
+                            </ErrorText>
+                        }
+
+                        <H3>
                             Title owner
                         </H3>
                         <Paragraph>
@@ -141,14 +178,38 @@ class ViewTitleInformationPage extends React.Component {
                             Title address
                         </H3>
                         <Paragraph>
-                            {this.state.title.address.property_name_number} {this.state.title.address.street_name}, <br />
+                            {this.state.title.address.property_name_number}{this.state.title.address.street_name && ' ' + this.state.title.address.street_name}, <br />
                             {this.state.title.address.town_city}, <br />
                             {this.state.title.address.postcode}
                         </Paragraph>
 
-                        <H3>
-                            Price paid
-                        </H3>
+                        {(this.state.title.valuation && (
+                            <div>
+                                <H3>
+                                    Valuation
+                                </H3>
+                                <Paragraph>
+                                    {this.state.title.valuation}
+                                </Paragraph>
+                            </div>
+                        ))}
+
+                        {(this.state.title.description && (
+                            <div>
+                                <H3>
+                                    Description
+                                </H3>
+                                <Paragraph>
+                                    {this.state.title.description}
+                                </Paragraph>
+                            </div>
+                        ))}
+
+                        {(this.state.title.price_paid.length > 0 && (
+                            <H3>
+                                Price paid
+                            </H3>
+                        ))}
                         {this.state.title.price_paid.map((item, key) => (
                             <div key={key}>
                                 <Paragraph>
@@ -160,7 +221,7 @@ class ViewTitleInformationPage extends React.Component {
                             </div>
                         ))}
                         
-                        {(this.state.title.interests.a && (
+                        {(this.state.title.interests.a.length > 0 && (
                             <H3>
                                 A. Charges and beneficial interests
                             </H3>
@@ -182,7 +243,7 @@ class ViewTitleInformationPage extends React.Component {
 
                         {tokenExists && 
                             <div>
-                                {(this.state.title.interests.b && (
+                                {(this.state.title.interests.b.length > 0 && (
                                     <H3>
                                         B. Charges and beneficial interests
                                     </H3>
@@ -206,40 +267,7 @@ class ViewTitleInformationPage extends React.Component {
                             </div>
                         }
 
-                    <H3>
-                        Token ID
-                    </H3>
-                    {tokenExists && 
-                        <div>
-                            <Paragraph>
-                                {tokenId.value}
-                            </Paragraph>
-
-                            <H3>
-                                Token wallet address
-                            </H3>
-                            <ContractData
-                                drizzle={drizzle}
-                                drizzleState={drizzleState}
-                                contract="TitleCore"
-                                method="ownerOf"
-                                methodArgs={tokenId && tokenId.value}
-                                render={walletAddress => (
-                                    <Paragraph>
-                                        {walletAddress}
-                                    </Paragraph>
-                                )}
-                            />
-                        </div>
-                    }
-
-                    {!tokenExists && 
-                        <ErrorText>
-                            N/A
-                        </ErrorText>
-                    }
-                    
-                    {tokenControls}
+                    {this.state.isOwner && tokenControls}
 
                     </GridCol>
                     <GridCol setWidth="one-third">

@@ -571,7 +571,7 @@
         "id": 153,
         "nodeType": "ImportDirective",
         "scope": 249,
-        "sourceUnit": 1782,
+        "sourceUnit": 1778,
         "src": "205:69:2",
         "symbolAliases": [],
         "unitAlias": ""
@@ -603,10 +603,10 @@
               "id": 156,
               "name": "ERC721Full",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1781,
+              "referencedDeclaration": 1777,
               "src": "318:10:2",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ERC721Full_$1781",
+                "typeIdentifier": "t_contract$_ERC721Full_$1777",
                 "typeString": "contract ERC721Full"
               }
             },
@@ -617,15 +617,15 @@
         ],
         "contractDependencies": [
           149,
-          576,
-          586,
-          1395,
-          1757,
-          1781,
-          1910,
-          2013,
-          2040,
-          2063
+          572,
+          582,
+          1391,
+          1753,
+          1777,
+          1906,
+          2009,
+          2036,
+          2059
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -633,15 +633,15 @@
         "id": 248,
         "linearizedBaseContracts": [
           248,
-          1781,
-          1910,
-          2063,
-          1757,
-          2040,
-          1395,
-          2013,
-          576,
-          586,
+          1777,
+          1906,
+          2059,
+          1753,
+          2036,
+          1391,
+          2009,
+          572,
+          582,
           149
         ],
         "name": "TitleBase",
@@ -705,10 +705,10 @@
                   "name": "ERC721Full",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 1781,
+                  "referencedDeclaration": 1777,
                   "src": "365:10:2",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_type$_t_contract$_ERC721Full_$1781_$",
+                    "typeIdentifier": "t_type$_t_contract$_ERC721Full_$1777_$",
                     "typeString": "type(contract ERC721Full)"
                   }
                 },
@@ -1179,10 +1179,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        2116,
-                        2117
+                        2112,
+                        2113
                       ],
-                      "referencedDeclaration": 2117,
+                      "referencedDeclaration": 2113,
                       "src": "1563:7:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -1267,7 +1267,7 @@
                             "name": "now",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 2115,
+                            "referencedDeclaration": 2111,
                             "src": "1757:3:2",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
@@ -1697,9 +1697,9 @@
                       "name": "_mint",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1564
+                        1560
                       ],
-                      "referencedDeclaration": 1564,
+                      "referencedDeclaration": 1560,
                       "src": "2116:5:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_address_$_t_uint256_$returns$__$",
@@ -1896,7 +1896,7 @@
         "id": 153,
         "nodeType": "ImportDirective",
         "scope": 249,
-        "sourceUnit": 1782,
+        "sourceUnit": 1778,
         "src": "205:69:2",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1928,10 +1928,10 @@
               "id": 156,
               "name": "ERC721Full",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1781,
+              "referencedDeclaration": 1777,
               "src": "318:10:2",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ERC721Full_$1781",
+                "typeIdentifier": "t_contract$_ERC721Full_$1777",
                 "typeString": "contract ERC721Full"
               }
             },
@@ -1942,15 +1942,15 @@
         ],
         "contractDependencies": [
           149,
-          576,
-          586,
-          1395,
-          1757,
-          1781,
-          1910,
-          2013,
-          2040,
-          2063
+          572,
+          582,
+          1391,
+          1753,
+          1777,
+          1906,
+          2009,
+          2036,
+          2059
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -1958,15 +1958,15 @@
         "id": 248,
         "linearizedBaseContracts": [
           248,
-          1781,
-          1910,
-          2063,
-          1757,
-          2040,
-          1395,
-          2013,
-          576,
-          586,
+          1777,
+          1906,
+          2059,
+          1753,
+          2036,
+          1391,
+          2009,
+          572,
+          582,
           149
         ],
         "name": "TitleBase",
@@ -2030,10 +2030,10 @@
                   "name": "ERC721Full",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 1781,
+                  "referencedDeclaration": 1777,
                   "src": "365:10:2",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_type$_t_contract$_ERC721Full_$1781_$",
+                    "typeIdentifier": "t_type$_t_contract$_ERC721Full_$1777_$",
                     "typeString": "type(contract ERC721Full)"
                   }
                 },
@@ -2504,10 +2504,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        2116,
-                        2117
+                        2112,
+                        2113
                       ],
-                      "referencedDeclaration": 2117,
+                      "referencedDeclaration": 2113,
                       "src": "1563:7:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2592,7 +2592,7 @@
                             "name": "now",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 2115,
+                            "referencedDeclaration": 2111,
                             "src": "1757:3:2",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
@@ -3022,9 +3022,9 @@
                       "name": "_mint",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1564
+                        1560
                       ],
-                      "referencedDeclaration": 1564,
+                      "referencedDeclaration": 1560,
                       "src": "2116:5:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_address_$_t_uint256_$returns$__$",
@@ -3189,7 +3189,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.9",
-  "updatedAt": "2019-07-01T12:21:20.559Z",
+  "updatedAt": "2019-07-23T12:01:42.243Z",
   "devdoc": {
     "methods": {
       "approve(address,uint256)": {
