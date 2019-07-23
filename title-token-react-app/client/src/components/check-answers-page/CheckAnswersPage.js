@@ -134,7 +134,7 @@ const CheckAnswersPage = () => {
                                             <strong>Date of birth</strong>
                                         </Table.Cell>
                                         <Table.Cell>
-                                            {date.day} {months[date.month]} {date.year}
+                                            {date.day} {months[parseInt(date.month)-1]} {date.year}
                                         </Table.Cell>
                                         <Table.Cell>
                                             <StyledLink href="#">

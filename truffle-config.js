@@ -20,10 +20,16 @@ module.exports = {
       host: "localhost",
       port:  8545,
       gas:   2900000
+    },
+    rinkeby: {
+      network_id: 4,
+      host: "localhost",
+      port:  8545,
+      gas:   2900000
     }
   },
   rpc: {
     host: 'localhost',
-    post:8080
+    post: 8080
   }
 };

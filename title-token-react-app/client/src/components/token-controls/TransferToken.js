@@ -10,7 +10,6 @@ const { ContractForm } = newContextComponents;
 class TransferToken extends React.Component {
 
     state = { 
-        walletAddress: null,
         walletAddress: null
       };
     

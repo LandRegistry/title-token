@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -17,7 +17,6 @@ const StyledParagraph = styled(Paragraph)`
 
 const SuccessPage = () => {
 
-    const [tokenId] = useState(localStorage.getItem('tokenId'))
     localStorage.setItem('fullName', '');
     localStorage.setItem('day', '');
     localStorage.setItem('month', '');
@@ -43,7 +42,7 @@ const SuccessPage = () => {
                     <InsetText>
                         To <strong>burn</strong> your title token&nbsp;
                         <Link as={RouterLink} to="#">click here</Link>
-                        &nbsp;and it will be permanantly deleted. You may request a new token for the same title at a 
+                        &nbsp;and it will be permanently deleted. You may request a new token for the same title at a 
                         later date.
                     </InsetText>
                     <Link as={RouterLink} to="/dashboard/">

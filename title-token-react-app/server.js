@@ -1,23 +1,27 @@
+require('dotenv').config({path: '../.env'})
+
 const express = require('express');
 const fs = require('fs');
 const Web3 = require('web3')
 const app = express();
 const port = process.env.PORT || 5000;
-const provider = new Web3.providers.HttpProvider("http://localhost:9545");
-const contract = require("truffle-contract");
+const provider = new Web3.providers.HttpProvider(process.env.HTTP_PROVIDER);
+const EthereumTx = require('ethereumjs-tx').Transaction
 
 const titleCoreJSON = require('./client/src/contracts/TitleCore.json');
-const titleDataFilepath = './data/titles.json';
-const courtOrdersDataFilepath = './data/court_orders.json';
+const titleDataFilepath = process.env.TITLE_DATA_FILEPATH;
+const courtOrdersDataFilepath = process.env.COURT_ORDER_DATA_FILEPATH;
 
-/************************************************************************************** 
- * Make sure that these addresses are updated whenever you re-deploy the network or contracts!
-***************************************************************************************/
-const issuerAccount = "0x8A0E1f0Ab6F9935DE68742dE6298f90a2B20CC1B";
-const contractAddress = "0x5F4D93C9fd226FE4385f0EEb3605f386459d51a1"; 
+const privateKey = Buffer.from(fs.readFileSync(process.env.PRIVATE_KEY_LOCATION, 'utf-8'), 'hex');
+const issuerAccount = process.env.ISSUER_ACCOUNT;
+const contractAddress = process.env.CONTRACT_ADDRESS; 
 
-const TitleCore = contract(titleCoreJSON);
-TitleCore.setProvider(provider);
+const web3 = new Web3(provider);
+
+const titleCoreContract = new web3.eth.Contract(titleCoreJSON.abi, contractAddress, {
+    from: issuerAccount,
+    gas: 500000
+});
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 app.use(express.json());
@@ -95,16 +99,39 @@ app.get('/titles/:titleId', (req, res) => {
 
 app.post('/request-token', (req, res) => {
     const body = req.body;
-    console.log(body);
-    TitleCore.at(contractAddress)
-        .then(function(instance) {
-            titleCore = instance;
-            titleCore.issueTitleToken(body.owner, body.titleId, {from: issuerAccount})
-                .then(function (result) {
 
-                    //  Since making a new transaction doesn't return a result, call the titleIdToTokenIndex 
-                    // mapping to get its tokenId
-                    titleCore.titleIdToTokenIndex.call(body.titleId)
+    web3.eth.getTransactionCount(issuerAccount)
+        .then(nonce => {
+            const functionAbi = titleCoreContract.methods.issueTitleToken(body.owner, body.titleId).encodeABI()
+            
+            let estimatedGas
+            titleCoreContract.methods.issueTitleToken(body.owner, body.titleId).estimateGas({
+            from: issuerAccount,
+            }).then((gasAmount) => {
+            estimatedGas = gasAmount.toString(16)
+            })
+
+            console.log(nonce)
+            console.log(estimatedGas)
+
+            const txParams = {
+                nonce: nonce,
+                gasPrice: web3.utils.toHex(web3.utils.toWei('20', 'gwei')),
+                // gasPrice: '0x' + estimatedGas,
+                // gasPrice: ,
+                gasLimit: 500000,
+                to: contractAddress,
+                value: 0,
+                data: functionAbi
+            }
+
+            const tx = new EthereumTx(txParams, {chain: 'rinkeby', 'hardfork': 'petersburg'})
+            tx.sign(privateKey);
+            const serialisedTx = tx.serialize()
+            web3.eth.sendSignedTransaction('0x' + serialisedTx.toString('hex'))
+                .then(function (receipt) {
+                    console.log("Transaction receipt: ", receipt)
+                    titleCoreContract.methods.titleIdToTokenIndex(body.titleId).call()
                         .then(function (tokenId) {
                             res.send(tokenId);
                         })
@@ -114,19 +141,19 @@ app.post('/request-token', (req, res) => {
                                 'error': error
                             });
                         })
-                })
-            .catch(error => {
-                console.log(error);
-                res.status(400).send({
-                    'error': error
-                })
-            });
+                }) 
+                .catch(error => {
+                    console.log(error);
+                    res.status(400).send({
+                        'error': error
+                    })
+                });
         })
         .catch(error => {
             console.log(error);
             res.status(500).send({
                 'error': error
             })
-        });
-});
+    })
+})
 
